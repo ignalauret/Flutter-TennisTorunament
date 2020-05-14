@@ -18,16 +18,22 @@ class _TabsControllerScreenState extends State<TabsControllerScreen> {
     RankingScreen(),
     HomeScreen(),
   ];
+
+  final _titles = [
+    "Home",
+    "Partidos",
+    "Ranking",
+    "Home"
+  ];
   Widget _buildAppBar() {
     return AppBar(
-      title: Text("Home"),
+      title: Text(_titles[_tabIndex]),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
       bottomNavigationBar: CurvedNavigationBar(
         height: 45,
         backgroundColor: BACKGROUND_COLOR,

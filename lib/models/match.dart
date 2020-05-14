@@ -27,4 +27,20 @@ class Match {
     return isFirstWinner ? idPlayer1 : idPlayer2;
   }
 
+  List<String> getColouredResult(bool firstPlayer) {
+    if(firstPlayer) {
+      final result = result1;
+      for(int i = 0; i < result.length; i++) {
+        if(int.parse(result[i]) > int.parse(result2[i])) result[i] = result[i][0] + " ";
+      }
+      return result;
+    } else {
+      final result = result2;
+      for(int i = 0; i < result.length; i++) {
+        if(int.parse(result[i]) > int.parse(result1[i])) result[i] = result[i][0] + " ";
+      }
+      return result;
+    }
+  }
+
 }

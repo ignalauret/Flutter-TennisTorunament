@@ -27,8 +27,8 @@ class MatchesList extends StatelessWidget {
               return MatchesListItem(
                 name1: name1,
                 name2: name2,
-                result1: match.result1,
-                result2: match.result2,
+                result1: match.getColouredResult(true),
+                result2: match.getColouredResult(false),
                 isFirstWinner: match.isFirstWinner,
                 date: match.date,
                 tournament: match.tournament,

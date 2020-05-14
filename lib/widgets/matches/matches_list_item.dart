@@ -51,12 +51,16 @@ class MatchesListItem extends StatelessWidget {
           width: resultWidth,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: result
-                .map((score) => Container(
-                      padding: const EdgeInsets.all(10),
-                      child: Text(score),
-                    ))
-                .toList(),
+            children: result.map((score) {
+              return Container(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  score[0],
+                  style: TextStyle(
+                      color: score.length == 2 ? ACCENT_COLOR : Colors.black),
+                ),
+              );
+            }).toList(),
           ),
         )
       ],

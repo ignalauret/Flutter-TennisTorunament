@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tennistournament/utils/constants.dart';
 
+import '../ranking_badge.dart';
+
 class PlayerListItem extends StatelessWidget {
   PlayerListItem({
     this.name,
@@ -12,15 +14,6 @@ class PlayerListItem extends StatelessWidget {
   final String ranking;
   final String points;
   final String tournaments;
-
-  Widget _buildPlayerStat(String value) {
-    return Expanded(
-      child: Text(
-        value,
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,25 +29,9 @@ class PlayerListItem extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            RankingBadge(ranking),
             Container(
-              height: 20,
-              width: 20,
-              margin: const EdgeInsets.only(right: 5),
-              decoration: BoxDecoration(
-                color: MAIN_COLOR,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                ranking,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.4,
+              width: MediaQuery.of(context).size.width * 0.3,
               alignment: Alignment.centerLeft,
               child: Text(
                 name,
@@ -62,8 +39,20 @@ class PlayerListItem extends StatelessWidget {
                 textAlign: TextAlign.start,
               ),
             ),
-            _buildPlayerStat(tournaments),
-            _buildPlayerStat(points),
+            Expanded(
+              child: Text(
+                tournaments,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.12,
+              child: Text(
+                points,
+                style: TextStyle(color: ACCENT_COLOR,),
+                textAlign: TextAlign.center,
+              ),
+            )
           ],
         ),
       ),

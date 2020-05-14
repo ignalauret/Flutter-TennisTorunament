@@ -10,6 +10,7 @@ class PlayersList extends StatelessWidget {
     final ranking = Provider.of<Ranking>(context).fetchRanking();
     final playersData = Provider.of<Players>(context);
     return ListView.builder(
+      padding: const EdgeInsets.all(0),
       itemBuilder: (ctx, index) => PlayerListItem(
         ranking: (index + 1).toString(),
         name: playersData.getPlayerName(ranking[index]),
