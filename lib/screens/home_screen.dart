@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tennistournament/utils/constants.dart';
 import 'package:tennistournament/widgets/matches/matches_list.dart';
-import 'package:tennistournament/widgets/players/players_list.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -24,10 +23,7 @@ class HomeScreen extends StatelessWidget {
           "Ranking",
           style: TITLE_STYLE,
         ),
-        Container(
-          height: size.height * 0.3,
-          child: PlayersList(),
-        ),
+
       ],
     );
   }

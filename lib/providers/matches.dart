@@ -9,7 +9,7 @@ class Matches extends ChangeNotifier {
       result1: ["6", "6", "6"],
       result2: ["0", "7", "3"],
       date: DateTime(2020, 5, 14, 16, 30),
-      tournament: "Ausralian Open",
+      tournament: "Ausralian Open A",
       round: "Segunda Ronda",
     ),
     Match(
@@ -18,7 +18,7 @@ class Matches extends ChangeNotifier {
       result1: ["6", "6"],
       result2: ["3", "3"],
       date: DateTime(2020, 5, 13, 18, 00),
-      tournament: "Ausralian Open",
+      tournament: "Ausralian Open B",
       round: "Semifinal",
     ),
   ];

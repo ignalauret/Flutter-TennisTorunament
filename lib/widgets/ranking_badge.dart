@@ -18,8 +18,9 @@ class RankingBadge extends StatelessWidget {
       child: Text(
         rank,
         style: TextStyle(
-          fontSize: 12,
+          fontSize: 13,
           color: Colors.white,
+          fontWeight: FontWeight.bold
         ),
       ),
     );

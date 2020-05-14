@@ -50,7 +50,7 @@ class _TabsControllerScreenState extends State<TabsControllerScreen> {
             color: MAIN_COLOR,
           ),
           Icon(
-            Icons.compare_arrows,
+            Icons.sort,
             size: 30,
             color: MAIN_COLOR,
           ),

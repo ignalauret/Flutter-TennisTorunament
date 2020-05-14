@@ -49,7 +49,9 @@ class PlayerListItem extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.12,
               child: Text(
                 points,
-                style: TextStyle(color: ACCENT_COLOR,),
+                style: TextStyle(
+                  color: ACCENT_COLOR,
+                ),
                 textAlign: TextAlign.center,
               ),
             )
