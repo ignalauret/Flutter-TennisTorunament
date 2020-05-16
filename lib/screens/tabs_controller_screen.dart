@@ -37,7 +37,8 @@ class _TabsControllerScreenState extends State<TabsControllerScreen> {
       bottomNavigationBar: CurvedNavigationBar(
         height: 45,
         backgroundColor: BACKGROUND_COLOR,
-
+        color: Colors.white,
+        buttonBackgroundColor: Colors.white,
         items: <Widget>[
           Icon(
             Icons.home,

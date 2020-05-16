@@ -18,4 +18,11 @@ class Ranking extends ChangeNotifier {
     ranking.addAll({category: result});
     return result;
   }
+
+  String getRankingOf(String id, String category) {
+    final ranking = fetchRanking(category);
+    final index = ranking.indexOf(id);
+    if(index == -1) return "-";
+    return (index + 1).toString();
+  }
 }

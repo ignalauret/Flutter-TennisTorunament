@@ -8,7 +8,8 @@ class Match {
     @required this.result2,
     @required this.date,
     @required this.tournament,
-    @required this.round
+    @required this.round,
+    @required this.category
   });
 
   final String idPlayer1;
@@ -18,6 +19,7 @@ class Match {
   final DateTime date;
   final String tournament;
   final String round;
+  final String category;
 
   bool get isFirstWinner {
     return int.parse(result1.last) > int.parse(result2.last);

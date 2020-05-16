@@ -17,35 +17,32 @@ class _MatchesScreenState extends State<MatchesScreen> {
           _selectedIndex = index;
         });
       },
-      child: Card(
-        color: Colors.transparent,
-        elevation: 5,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(BORDER_RADIUS)),
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(BORDER_RADIUS),
-            color: _selectedIndex == index ? MAIN_COLOR : Colors.white,
-          ),
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                day.day.toString(),
-                style: TextStyle(
-                    color:
-                        _selectedIndex == index ? Colors.white : ACCENT_COLOR),
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.symmetric(horizontal: 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(BORDER_RADIUS),
+          color: _selectedIndex == index ? Colors.black38 : Colors.transparent,
+        ),
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              day.day.toString(),
+              style: TextStyle(
+                color: _selectedIndex == index ? ACCENT_COLOR : Colors.white,
+                fontWeight: FontWeight.bold,
               ),
-              Text(
-                DateFormat.MMM().format(day),
-                style: TextStyle(
-                    color:
-                        _selectedIndex == index ? Colors.white : ACCENT_COLOR),
+            ),
+            Text(
+              DateFormat.MMM().format(day),
+              style: TextStyle(
+                color: _selectedIndex == index ? ACCENT_COLOR : Colors.white,
+                fontWeight: FontWeight.bold,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -53,19 +50,38 @@ class _MatchesScreenState extends State<MatchesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Column(
       children: <Widget>[
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: 70,
-          child: ListView.builder(
-            reverse: true,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (ctx, index) {
-              return _buildDayCard(
-                  DateTime.now().subtract(Duration(days: index)), index);
-            },
-          ),
+        Stack(
+          children: <Widget>[
+            Container(
+              height: size.height * 0.25 + 80,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(BORDER_RADIUS),
+                  bottomRight: Radius.circular(BORDER_RADIUS),
+                ),
+                color: MAIN_COLOR,
+              ),
+            ),
+            Positioned(
+              top: size.height * 0.25,
+              child: Container(
+                width: size.width,
+                height: 70,
+                child: ListView.builder(
+                  reverse: true,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (ctx, index) {
+                    return _buildDayCard(
+                        DateTime.now().subtract(Duration(days: index)), index);
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
         Expanded(
           child: MatchesList(

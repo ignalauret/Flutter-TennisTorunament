@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tennistournament/screens/player_profile_screen.dart';
 import 'package:tennistournament/utils/constants.dart';
 
 import '../ranking_badge.dart';
@@ -33,10 +34,13 @@ class PlayerListItem extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width * 0.3,
               alignment: Alignment.centerLeft,
-              child: Text(
-                name,
-                style: PLAYER_NAME_STYLE,
-                textAlign: TextAlign.start,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  name,
+                  style: PLAYER_NAME_STYLE,
+                  textAlign: TextAlign.start,
+                ),
               ),
             ),
             Expanded(

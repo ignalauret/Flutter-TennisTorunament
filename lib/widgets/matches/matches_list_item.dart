@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tennistournament/utils/constants.dart';
+import 'package:tennistournament/widgets/ranking_badge.dart';
 
 class MatchesListItem extends StatelessWidget {
   MatchesListItem({
@@ -12,8 +13,12 @@ class MatchesListItem extends StatelessWidget {
     @required this.round,
     @required this.tournament,
     @required this.date,
+    @required this.ranking1,
+    @required this.ranking2,
   });
 
+  final String ranking1;
+  final String ranking2;
   final String name1;
   final String name2;
   final List<String> result1;
@@ -24,13 +29,19 @@ class MatchesListItem extends StatelessWidget {
   final DateTime date;
 
   Widget _buildPlayerRow(
-      String name, List<String> result, double resultWidth, bool winner) {
+    String name,
+    List<String> result,
+    double resultWidth,
+    bool winner,
+    String ranking,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Container(
           child: Row(
             children: <Widget>[
+              RankingBadge(ranking),
               Text(
                 name,
                 style: PLAYER_NAME_STYLE,
@@ -75,6 +86,10 @@ class MatchesListItem extends StatelessWidget {
           horizontal: 10,
           vertical: 5,
         ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(BORDER_RADIUS),
+        ),
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -93,16 +108,13 @@ class MatchesListItem extends StatelessWidget {
                 ],
               ),
               _buildPlayerRow(
-                name1,
-                result1,
-                size.width * 0.3,
-                isFirstWinner,
-              ),
+                  name1, result1, size.width * 0.3, isFirstWinner, ranking1),
               _buildPlayerRow(
                 name2,
                 result2,
                 size.width * 0.3,
                 !isFirstWinner,
+                ranking2,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

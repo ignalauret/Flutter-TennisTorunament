@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:tennistournament/models/player.dart';
 import 'package:tennistournament/providers/players.dart';
 import 'package:tennistournament/providers/ranking.dart';
+import 'package:tennistournament/screens/player_profile_screen.dart';
 import 'package:tennistournament/utils/constants.dart';
 import 'package:tennistournament/widgets/players/players_list.dart';
 import 'package:tennistournament/widgets/ranking_badge.dart';
@@ -23,14 +25,11 @@ class _RankingScreenState extends State<RankingScreen> {
   final TextStyle accentPoints = TextStyle(
     color: ACCENT_COLOR,
     fontSize: 13,
+    fontWeight: FontWeight.bold
   );
   final TextStyle greyTournaments = TextStyle(
     color: BACKGROUND_COLOR,
     fontSize: 11,
-  );
-  final TextStyle greyTitle = TextStyle(
-    color: Colors.grey[700],
-    fontSize: 14,
   );
 
   String selectedCategory = "A";
@@ -66,10 +65,7 @@ class _RankingScreenState extends State<RankingScreen> {
 
   Widget _buildPodium({
     int ranking,
-    String name,
-    int points,
-    int tournaments,
-    String imageUrl,
+    Player player,
     Size size,
   }) {
     return Positioned(
@@ -79,31 +75,45 @@ class _RankingScreenState extends State<RankingScreen> {
           : ranking == 2
               ? size.width * 0.05
               : size.width * 0.95 - size.width * 0.30,
-      child: Container(
-        height: size.height * 0.20,
-        width: size.width * 0.30,
-        child: Column(
-          children: <Widget>[
-            CircleAvatar(
-              child: Image.asset(imageUrl),
-              backgroundColor: Colors.black38,
-              radius: ranking == 1
-                  ? min(size.height * 0.08, size.width * 0.10)
-                  : min(size.height * 0.06, size.width * 0.08),
-            ),
-            Text(
-              name,
-              style: whiteName,
-            ),
-            Text(
-              "$points puntos",
-              style: accentPoints,
-            ),
-            Text(
-              "Torneos jugados: $tournaments",
-              style: greyTournaments,
-            ),
-          ],
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).pushNamed(PlayerProfileScreen.routeName, arguments: player);
+        },
+        child: Container(
+          height: size.height * 0.20,
+          width: size.width * 0.30,
+          child: Column(
+            children: <Widget>[
+              CircleAvatar(
+                child: Image.asset(player.profileUrl),
+                backgroundColor: Colors.black38,
+                radius: ranking == 1
+                    ? min(size.height * 0.08, size.width * 0.10)
+                    : min(size.height * 0.06, size.width * 0.08),
+              ),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  player.name,
+                  style: whiteName,
+                ),
+              ),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  "${player.points[selectedCategory]} puntos",
+                  style: accentPoints,
+                ),
+              ),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  "Torneos jugados: 1",
+                  style: greyTournaments,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -150,29 +160,17 @@ class _RankingScreenState extends State<RankingScreen> {
               ),
               _buildPodium(
                 ranking: 1,
-                name: playerData.getPlayerName(ranking[0]),
-                points:
-                    playerData.getPlayerPoints(ranking[0], selectedCategory),
-                tournaments: 1,
-                imageUrl: playerData.getPlayerImage(ranking[0]),
+                player: playerData.getPlayerById(ranking[0]),
                 size: size,
               ),
               _buildPodium(
                 ranking: 2,
-                name: playerData.getPlayerName(ranking[1]),
-                points:
-                    playerData.getPlayerPoints(ranking[1], selectedCategory),
-                tournaments: 1,
-                imageUrl: playerData.getPlayerImage(ranking[1]),
+                player: playerData.getPlayerById(ranking[1]),
                 size: size,
               ),
               _buildPodium(
                 ranking: 3,
-                name: playerData.getPlayerName(ranking[2]),
-                points:
-                    playerData.getPlayerPoints(ranking[2], selectedCategory),
-                tournaments: 1,
-                imageUrl: playerData.getPlayerImage(ranking[2]),
+                player: playerData.getPlayerById(ranking[2]),
                 size: size,
               ),
               Positioned(
@@ -208,14 +206,14 @@ class _RankingScreenState extends State<RankingScreen> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Nombre",
-                    style: greyTitle,
+                    style: TITLE_STYLE,
                     textAlign: TextAlign.start,
                   ),
                 ),
                 Expanded(
                   child: Text(
                     "Torneos Jugados",
-                    style: greyTitle,
+                    style: TITLE_STYLE,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -223,7 +221,7 @@ class _RankingScreenState extends State<RankingScreen> {
                   width: MediaQuery.of(context).size.width * 0.12,
                   child: Text(
                     "Puntos",
-                    style: greyTitle,
+                    style: TITLE_STYLE,
                     textAlign: TextAlign.center,
                   ),
                 )
