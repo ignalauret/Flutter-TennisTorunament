@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:tennistournament/utils/constants.dart';
 import 'package:tennistournament/widgets/matches/matches_list.dart';
+import 'package:tennistournament/widgets/tournaments/tournaments_list.dart';
 
 class MatchesScreen extends StatefulWidget {
   @override
@@ -10,6 +12,11 @@ class MatchesScreen extends StatefulWidget {
 
 class _MatchesScreenState extends State<MatchesScreen> {
   int _selectedIndex = 0;
+
+  DateTime get selectedDay {
+    return DateTime.now().subtract(Duration(days: _selectedIndex));
+  }
+
   Widget _buildDayCard(DateTime day, int index) {
     return InkWell(
       onTap: () {
@@ -53,25 +60,24 @@ class _MatchesScreenState extends State<MatchesScreen> {
     final size = MediaQuery.of(context).size;
     return Column(
       children: <Widget>[
-        Stack(
-          children: <Widget>[
-            Container(
-              height: size.height * 0.25 + 80,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(BORDER_RADIUS),
-                  bottomRight: Radius.circular(BORDER_RADIUS),
-                ),
-                color: MAIN_COLOR,
-              ),
+        Container(
+          height: size.height * 0.25 + 80,
+          width: double.infinity,
+          padding: const EdgeInsets.only(top: 30, bottom: 0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(BORDER_RADIUS),
+              bottomRight: Radius.circular(BORDER_RADIUS),
             ),
-            Positioned(
-              top: size.height * 0.25,
-              child: Container(
+            color: MAIN_COLOR,
+          ),
+          child: Column(
+            children: <Widget>[
+              Container(
                 width: size.width,
                 height: 70,
                 child: ListView.builder(
+                  padding: const EdgeInsets.all(0),
                   reverse: true,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (ctx, index) {
@@ -80,8 +86,27 @@ class _MatchesScreenState extends State<MatchesScreen> {
                   },
                 ),
               ),
-            ),
-          ],
+              Container(
+                height: 20,
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.025),
+                alignment: Alignment.centerLeft,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    "Torneos Activos",
+                    style: TITLE_STYLE,
+                  ),
+                ),
+              ),
+              Container(
+                height: size.height * 0.25 - 40,
+                width: double.infinity,
+                color: Colors.transparent,
+                child: TournamentsList(date: selectedDay,),
+              ),
+            ],
+          ),
         ),
         Expanded(
           child: MatchesList(

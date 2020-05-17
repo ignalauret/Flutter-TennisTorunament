@@ -158,7 +158,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                   width: 80,
                   child: FlatButton(
                     padding:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                        const EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 2),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -287,7 +287,14 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                           player.points[selectedCategory].toString() +
                               " puntos",
                           size),
-                      _buildBigStat("Mejor Posicion", "3", "27/05/2018", size),
+                      _buildBigStat(
+                          "Mejor Posicion",
+                          player.bestRankings[selectedCategory] == 1000
+                              ? "-"
+                              : player.bestRankings[selectedCategory]
+                                  .toString(),
+                          player.bestRankingsDates[selectedCategory],
+                          size),
                     ],
                   ),
                   Row(
@@ -307,11 +314,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                       Container(
                         child: Text(
                           "Partidos recientes",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: TITLE_STYLE,
                         ),
                         margin: EdgeInsets.symmetric(
                             horizontal: size.width * 0.025),

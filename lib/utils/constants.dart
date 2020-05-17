@@ -6,6 +6,12 @@ const TextStyle PLAYER_NAME_STYLE = TextStyle(
 );
 
 TextStyle TITLE_STYLE = TextStyle(
+  color: Colors.white,
+  fontSize: 16,
+  fontWeight: FontWeight.bold,
+);
+
+TextStyle SMALL_TITLE_STYLE = TextStyle(
   fontSize: 15,
   fontWeight: FontWeight.w400,
   color: Colors.grey[600],

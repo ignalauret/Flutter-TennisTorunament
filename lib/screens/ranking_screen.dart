@@ -206,14 +206,14 @@ class _RankingScreenState extends State<RankingScreen> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Nombre",
-                    style: TITLE_STYLE,
+                    style: SMALL_TITLE_STYLE,
                     textAlign: TextAlign.start,
                   ),
                 ),
                 Expanded(
                   child: Text(
                     "Torneos Jugados",
-                    style: TITLE_STYLE,
+                    style: SMALL_TITLE_STYLE,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -221,7 +221,7 @@ class _RankingScreenState extends State<RankingScreen> {
                   width: MediaQuery.of(context).size.width * 0.12,
                   child: Text(
                     "Puntos",
-                    style: TITLE_STYLE,
+                    style: SMALL_TITLE_STYLE,
                     textAlign: TextAlign.center,
                   ),
                 )

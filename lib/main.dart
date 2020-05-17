@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tennistournament/providers/matches.dart';
 import 'package:tennistournament/providers/players.dart';
 import 'package:tennistournament/providers/ranking.dart';
+import 'package:tennistournament/providers/tournaments.dart';
 import 'package:tennistournament/screens/player_profile_screen.dart';
 import 'package:tennistournament/screens/tabs_controller_screen.dart';
 import 'package:tennistournament/utils/constants.dart';
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProxyProvider<Players, Ranking>(
           create: (ctx) => Ranking(null),
           update: (context, players, prev) => Ranking(players.players),
+        ),
+        ChangeNotifierProvider<Tournaments>(
+          create: (_) => Tournaments(),
         ),
       ],
       child: MaterialApp(

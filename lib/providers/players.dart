@@ -13,6 +13,8 @@ class Players extends ChangeNotifier {
       backhand: Backhand.OneHanded,
       nationality: "Córdoba, Córdoba",
       club: "Las Delicias Tenis",
+      bestRankings: {"A": 1, "B": 2, "C": 1000},
+      bestRankingsDates: {"A": "14/04/2020", "B": "15/03/2020", "C" : ""},
     ),
     Player(
       name: "Agustin Arancio",
@@ -23,6 +25,8 @@ class Players extends ChangeNotifier {
       backhand: Backhand.TwoHanded,
       nationality: "Córdoba, Córdoba",
       club: "Il tempo",
+      bestRankings: {"A": 1, "B": 2, "C": 1000},
+      bestRankingsDates: {"A": "14/04/2020", "B": "15/03/2020", "C" : ""},
     ),
     Player(
       name: "Damian Giusti",
@@ -34,6 +38,8 @@ class Players extends ChangeNotifier {
       backhand: Backhand.OneHanded,
       nationality: "Santa Fe, Rosario",
       club: "Las Delicias Tenis",
+      bestRankings: {"A": 1, "B": 2, "C": 1000},
+      bestRankingsDates: {"A": "14/04/2020", "B": "15/03/2020", "C" : ""},
     ),
     Player(
       name: "Ignacio Zazu",
@@ -45,6 +51,8 @@ class Players extends ChangeNotifier {
       backhand: Backhand.OneHanded,
       nationality: "Córdoba, Córdoba",
       club: "Las Delicias Tenis",
+      bestRankings: {"A": 1, "B": 2, "C": 1000},
+      bestRankingsDates: {"A": "14/04/2020", "B": "15/03/2020", "C" : ""},
     ),
     Player(
       name: "Maxi Breide",

@@ -12,6 +12,8 @@ class Player {
     @required this.points,
     @required this.nationality,
     @required this.club,
+    @required this.bestRankings,
+    @required this.bestRankingsDates,
     this.profileUrl,
     this.imageUrl,
     this.backhand = Backhand.TwoHanded,
@@ -28,6 +30,8 @@ class Player {
   final Handed handed;
   final String nationality;
   final String club;
+  final Map<String, int> bestRankings;
+  final Map<String, String> bestRankingsDates;
 
 
   int get age {
