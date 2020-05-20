@@ -32,3 +32,5 @@ const Color MAIN_COLOR = Color(0xFF002865);
 const Color ACCENT_COLOR = Color(0xFF00AFF0);
 
 const BORDER_RADIUS = 15.0;
+
+const double DRAW_MATCH_HEIGHT = 75;

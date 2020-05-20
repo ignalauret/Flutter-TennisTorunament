@@ -9,9 +9,12 @@ import 'package:tennistournament/widgets/matches/matches_list_item.dart';
 import '../../providers/matches.dart';
 
 class MatchesList extends StatelessWidget {
-  MatchesList({this.date, this.playerId});
+  MatchesList(
+      {this.date, this.playerId, this.tournamentId, this.selectedCategory});
   final DateTime date;
   final String playerId;
+  final String tournamentId;
+  final String selectedCategory;
   @override
   Widget build(BuildContext context) {
     final tournamentsData = Provider.of<Tournaments>(context);
@@ -22,6 +25,10 @@ class MatchesList extends StatelessWidget {
     if (playerId != null)
       matchesList.retainWhere((match) =>
           match.idPlayer1 == playerId || match.idPlayer2 == playerId);
+    if (tournamentId != null)
+      matchesList.retainWhere((match) =>
+          match.tournament == tournamentId &&
+          match.category == selectedCategory);
     final playerData = Provider.of<Players>(context);
     final rankingData = Provider.of<Ranking>(context);
     return matchesList.isEmpty
@@ -29,7 +36,10 @@ class MatchesList extends StatelessWidget {
             height: 140,
             width: double.infinity,
             alignment: Alignment.center,
-            child: Text("No hay partidos", style: TITLE_STYLE,),
+            child: Text(
+              "No hay partidos",
+              style: TITLE_STYLE,
+            ),
           )
         : Container(
             height: matchesList.length * 140.0,
@@ -39,7 +49,8 @@ class MatchesList extends StatelessWidget {
                 final match = matchesList[index];
                 final name1 = playerData.getPlayerName(match.idPlayer1);
                 final name2 = playerData.getPlayerName(match.idPlayer2);
-                final tournament = tournamentsData.getTournamentById(match.tournament);
+                final tournament =
+                    tournamentsData.getTournamentById(match.tournament);
                 return MatchesListItem(
                   name1: name1,
                   name2: name2,

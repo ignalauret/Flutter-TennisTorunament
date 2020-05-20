@@ -14,10 +14,15 @@ class TournamentsList extends StatelessWidget {
     if (date != null)
       tournaments.removeWhere((tournament) =>
           tournament.start.isAfter(date) || tournament.end.isBefore(date));
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (ctx, index) => TournamentsListItem(tournaments[index]),
-      itemCount: tournaments.length,
-    );
+    return tournaments.length == 0
+        ? Center(
+            child: Text("No hay torneos activos en esta fecha"),
+          )
+        : ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (ctx, index) =>
+                TournamentsListItem(tournaments[index]),
+            itemCount: tournaments.length,
+          );
   }
 }

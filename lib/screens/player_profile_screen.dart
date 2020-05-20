@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:tennistournament/models/player.dart';
 import 'package:tennistournament/providers/matches.dart';
 import 'package:tennistournament/providers/ranking.dart';
+import 'package:tennistournament/providers/tournaments.dart';
 import 'package:tennistournament/utils/constants.dart';
 import 'package:tennistournament/utils/stats_methods.dart';
+import 'package:tennistournament/widgets/category_buttons.dart';
 import 'package:tennistournament/widgets/matches/matches_list.dart';
 
 class PlayerProfileScreen extends StatefulWidget {
@@ -100,34 +102,10 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
     );
   }
 
-  Widget _buildCategoryButton(String text, bool selected) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.30,
-      margin: const EdgeInsets.symmetric(vertical: 5),
-      child: FlatButton(
-        padding: const EdgeInsets.all(15),
-        onPressed: () {
-          setState(() {
-            selectedCategory = text.substring(text.length - 1);
-          });
-        },
-        color: selected ? Colors.black45 : Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(BORDER_RADIUS),
-        ),
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(
-            text,
-            style: TextStyle(
-              color: selected ? ACCENT_COLOR : Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-        ),
-      ),
-    );
+  void selectCategory(String category) {
+    setState(() {
+      selectedCategory = category;
+    });
   }
 
   @override
@@ -137,6 +115,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
     final rankingData = Provider.of<Ranking>(context);
     final matchesData = Provider.of<Matches>(context);
     final playerStats = matchesData.getPlayerStats(player.id);
+    final tournamentsData = Provider.of<Tournaments>(context);
     return Scaffold(
       backgroundColor: MAIN_COLOR,
       body: SingleChildScrollView(
@@ -157,8 +136,8 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                   left: size.width * 0.03,
                   width: 80,
                   child: FlatButton(
-                    padding:
-                        const EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 2),
+                    padding: const EdgeInsets.only(
+                        top: 10, bottom: 10, right: 10, left: 2),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -201,94 +180,85 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                 Positioned(
                   top: size.height * 0.5,
                   child: Container(
-                      height: size.height * 0.08,
-                      width: size.width,
-                      decoration: BoxDecoration(
-                        color: MAIN_COLOR,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(BORDER_RADIUS),
-                          topRight: Radius.circular(BORDER_RADIUS),
-                        ),
+                    height: size.height * 0.08,
+                    width: size.width,
+                    decoration: BoxDecoration(
+                      color: MAIN_COLOR,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(BORDER_RADIUS),
+                        topRight: Radius.circular(BORDER_RADIUS),
                       ),
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            width: size.width * 0.5,
-                            alignment: Alignment.center,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset(
-                                  "assets/img/argentina_flag.png",
-                                  height: 20,
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: size.width * 0.5,
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                "assets/img/argentina_flag.png",
+                                height: 20,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  player.nationality,
+                                  style: infoTextStyle,
                                 ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                    player.nationality,
-                                    style: infoTextStyle,
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          Container(
-                            width: size.width * 0.5,
-                            alignment: Alignment.center,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.fitness_center,
-                                  size: 25,
-                                  color: ACCENT_COLOR,
+                        ),
+                        Container(
+                          width: size.width * 0.5,
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.fitness_center,
+                                size: 25,
+                                color: ACCENT_COLOR,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  player.club,
+                                  style: infoTextStyle,
                                 ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                    player.club,
-                                    style: infoTextStyle,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      )),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
             Container(
               child: Column(
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      _buildCategoryButton(
-                          "Categoria A", selectedCategory == "A"),
-                      _buildCategoryButton(
-                          "Categoria B", selectedCategory == "B"),
-                      _buildCategoryButton(
-                          "Categoria C", selectedCategory == "C"),
-                    ],
-                  ),
+                  CategoryButtons(selectCategory, selectedCategory),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       _buildBigStat(
-                          "Posicion Actual",
+                          "Ranking Actual",
                           rankingData.getRankingOf(player.id, selectedCategory),
                           player.points[selectedCategory].toString() +
                               " puntos",
                           size),
                       _buildBigStat(
-                          "Mejor Posicion",
+                          "Mejor Ranking",
                           player.bestRankings[selectedCategory] == 1000
                               ? "-"
                               : player.bestRankings[selectedCategory]
@@ -300,7 +270,11 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      _buildBigStat("Titulos", "1", "Jugados: 3", size),
+                      _buildBigStat(
+                          "Titulos",
+                          tournamentsData.getPlayerTitles(player.id).toString(),
+                          "Jugados: ${tournamentsData.getPlayersPlayedTournaments(player.id)}",
+                          size),
                       _buildBigStat(
                           "Victorias",
                           playerStats[selectedCategory]["wins"].toString(),
@@ -354,11 +328,11 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                       ),
                     ],
                   ),
-                  ConstrainedBox(
-                      constraints: BoxConstraints(maxHeight: 300, minHeight: 0),
-                      child: MatchesList(
-                        playerId: player.id,
-                      )),
+                  Container(
+                    child: MatchesList(
+                      playerId: player.id,
+                    ),
+                  ),
                 ],
               ),
             ),

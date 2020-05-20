@@ -6,6 +6,8 @@ import 'package:tennistournament/providers/ranking.dart';
 import 'package:tennistournament/providers/tournaments.dart';
 import 'package:tennistournament/screens/player_profile_screen.dart';
 import 'package:tennistournament/screens/tabs_controller_screen.dart';
+import 'package:tennistournament/screens/tournament_detail_screen.dart';
+import 'package:tennistournament/screens/tournament_draw_screen.dart';
 import 'package:tennistournament/utils/constants.dart';
 
 void main() => runApp(MyApp());
@@ -38,6 +40,8 @@ class MyApp extends StatelessWidget {
         home: TabsControllerScreen(),
         routes: {
           PlayerProfileScreen.routeName : (_) => PlayerProfileScreen(),
+          TournamentDetailScreen.routeName : (_) => TournamentDetailScreen(),
+          TournamentDrawScreen.routeName: (_) => TournamentDrawScreen(),
         },
       ),
     );

@@ -20,6 +20,7 @@ dependencies:
   provider:
   intl:
   curved_navigation_bar:
+  bidirectional_scroll_view:
   flutter:
     sdk: flutter
 

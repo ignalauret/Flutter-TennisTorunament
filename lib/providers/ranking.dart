@@ -25,4 +25,11 @@ class Ranking extends ChangeNotifier {
     if(index == -1) return "-";
     return (index + 1).toString();
   }
+
+  int getRankingOfInt(String id, String category) {
+    final ranking = fetchRanking(category);
+    final index = ranking.indexOf(id);
+    if(index == -1) return 1000;
+    return (index + 1);
+  }
 }

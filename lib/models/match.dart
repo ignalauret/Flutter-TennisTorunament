@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Match {
   Match({
+    @required this.id,
     @required this.idPlayer1,
     @required this.idPlayer2,
     @required this.result1,
@@ -12,6 +13,7 @@ class Match {
     @required this.category
   });
 
+  final String id;
   final String idPlayer1;
   final String idPlayer2;
   final List<String> result1;

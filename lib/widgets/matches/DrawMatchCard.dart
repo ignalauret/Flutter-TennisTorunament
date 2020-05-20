@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:tennistournament/utils/constants.dart';
 import 'package:tennistournament/widgets/ranking/ranking_badge.dart';
 
-class MatchesListItem extends StatelessWidget {
-  MatchesListItem({
+class DrawMatchCard extends StatelessWidget {
+  DrawMatchCard({
     @required this.name1,
     @required this.name2,
     @required this.result1,
     @required this.result2,
     @required this.isFirstWinner,
-    @required this.round,
-    @required this.tournament,
-    @required this.date,
     @required this.ranking1,
     @required this.ranking2,
   });
@@ -24,9 +20,6 @@ class MatchesListItem extends StatelessWidget {
   final List<String> result1;
   final List<String> result2;
   final bool isFirstWinner;
-  final String tournament;
-  final String round;
-  final DateTime date;
 
   Widget _buildPlayerRow(
     String name,
@@ -39,12 +32,13 @@ class MatchesListItem extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Container(
+          width: 130,
           child: Row(
             children: <Widget>[
-              RankingBadge(ranking),
+              RankingBadge(ranking, size: 15,),
               Text(
                 name,
-                style: PLAYER_NAME_STYLE,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
               ),
               SizedBox(
                 width: 10,
@@ -52,7 +46,7 @@ class MatchesListItem extends StatelessWidget {
               if (winner)
                 Icon(
                   Icons.check,
-                  size: 20,
+                  size: 12,
                   color: ACCENT_COLOR,
                 ),
             ],
@@ -64,11 +58,13 @@ class MatchesListItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: result.map((score) {
               return Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(5),
                 child: Text(
                   score[0],
                   style: TextStyle(
-                      color: score.length == 2 ? ACCENT_COLOR : Colors.black),
+                    color: score.length == 2 ? ACCENT_COLOR : Colors.black,
+                    fontSize: 12,
+                  ),
                 ),
               );
             }).toList(),
@@ -94,41 +90,10 @@ class MatchesListItem extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    DateFormat("EE dd MMMM, y").format(date),
-                    style: MATCH_INFO_STYLE,
-                  ),
-                  Text(
-                    DateFormat("HH:mm").format(date),
-                    style: MATCH_INFO_STYLE,
-                  ),
-                ],
-              ),
               _buildPlayerRow(
-                  name1, result1, size.width * 0.3, isFirstWinner, ranking1),
+                  name1, result1, 80, isFirstWinner, ranking1),
               _buildPlayerRow(
-                name2,
-                result2,
-                size.width * 0.3,
-                !isFirstWinner,
-                ranking2,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    tournament,
-                    style: MATCH_INFO_STYLE,
-                  ),
-                  Text(
-                    round,
-                    style: MATCH_INFO_STYLE,
-                  ),
-                ],
-              )
+                  name2, result2, 80, !isFirstWinner, ranking2),
             ],
           ),
         ));

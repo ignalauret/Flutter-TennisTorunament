@@ -6,6 +6,7 @@ const Categories = ["A", "B", "C"];
 class Matches extends ChangeNotifier {
   final List<Match> _matches = [
     Match(
+      id: "0",
       idPlayer1: "0",
       idPlayer2: "1",
       result1: ["6", "6", "6"],
@@ -16,6 +17,7 @@ class Matches extends ChangeNotifier {
       category: "A",
     ),
     Match(
+      id: "1",
       idPlayer1: "0",
       idPlayer2: "3",
       result1: ["6", "6"],
@@ -49,5 +51,9 @@ class Matches extends ChangeNotifier {
       });
     });
     return result;
+  }
+
+  Match getMatchById(String id) {
+    return _matches.firstWhere((match) => match.id == id);
   }
 }

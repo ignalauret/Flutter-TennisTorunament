@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tennistournament/screens/player_profile_screen.dart';
 import 'package:tennistournament/utils/constants.dart';
 
-import '../ranking_badge.dart';
+import '../ranking/ranking_badge.dart';
 
 class PlayerListItem extends StatelessWidget {
   PlayerListItem({
