@@ -35,7 +35,10 @@ class DrawMatchCard extends StatelessWidget {
           width: 130,
           child: Row(
             children: <Widget>[
-              RankingBadge(ranking, size: 15,),
+              RankingBadge(
+                ranking,
+                size: 15,
+              ),
               Text(
                 name,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
@@ -76,7 +79,6 @@ class DrawMatchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Card(
         margin: const EdgeInsets.symmetric(
           horizontal: 10,
@@ -90,10 +92,10 @@ class DrawMatchCard extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
-              _buildPlayerRow(
-                  name1, result1, 80, isFirstWinner, ranking1),
-              _buildPlayerRow(
-                  name2, result2, 80, !isFirstWinner, ranking2),
+              _buildPlayerRow(name1, result1, 80,
+                  isFirstWinner && result1[0] != "  ", ranking1),
+              _buildPlayerRow(name2, result2, 80,
+                  !isFirstWinner && result1[0] != "  ", ranking2),
             ],
           ),
         ));

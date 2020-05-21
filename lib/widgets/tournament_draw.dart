@@ -39,6 +39,26 @@ class TournamentDraw extends StatelessWidget {
     );
   }
 
+  Widget _buildUnplayedMatch(String idPlayer1, String idPlayer2, Players playerData,
+      Ranking rankingData, double margin) {
+    final name1 = idPlayer1.isEmpty ? "" : playerData.getPlayerName(idPlayer1);
+    final name2 = idPlayer2.isEmpty ? "" : playerData.getPlayerName(idPlayer2);
+    return Container(
+      height: DRAW_MATCH_HEIGHT,
+      margin: EdgeInsets.symmetric(horizontal: 0, vertical: margin),
+      alignment: Alignment.center,
+      child: DrawMatchCard(
+        name1: name1,
+        name2: name2,
+        ranking1:  idPlayer1.isEmpty ? "-" : rankingData.getRankingOf(idPlayer1, selectedCategory),
+        ranking2:  idPlayer2.isEmpty ? "-" : rankingData.getRankingOf(idPlayer2, selectedCategory),
+        result1: ["  ", "  ", "  "],
+        result2: ["  ", "  ", "  "],
+        isFirstWinner: false,
+      ),
+    );
+  }
+
   Widget _buildRoundColumn(List<String> matches, String title,
       Matches matchesData, Players playerData, Ranking rankingData) {
     return Column(
@@ -48,12 +68,22 @@ class TournamentDraw extends StatelessWidget {
           style: TITLE_STYLE,
         ),
         ...matches.map(
-          (match) => _buildMatchCard(
-            matchesData.getMatchById(match),
-            playerData,
-            rankingData,
-            getMargin(tournament.draws[selectedCategory], matches.length),
-          ),
+          (matchData) {
+            final data = matchData.split(",");
+            if (data[2] != "")
+              return _buildMatchCard(
+                matchesData.getMatchById(data[2]),
+                playerData,
+                rankingData,
+                getMargin(tournament.draws[selectedCategory], matches.length),
+              );
+            return _buildUnplayedMatch(
+                data[0],
+                data[1],
+                playerData,
+                rankingData,
+                getMargin(tournament.draws[selectedCategory], matches.length));
+          },
         )
       ],
     );
@@ -69,7 +99,9 @@ class TournamentDraw extends StatelessWidget {
         height: 1000,
         width: 1000,
         child: Row(
-          children: tournament.draws[selectedCategory].getSortedDraw().entries
+          children: tournament.draws[selectedCategory]
+              .getSortedDraw()
+              .entries
               .map(
                 (entry) => _buildRoundColumn(entry.value, entry.key,
                     matchesData, playerData, rankingData),
