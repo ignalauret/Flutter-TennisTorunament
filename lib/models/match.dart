@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:tennistournament/utils/date_methods.dart';
+import 'package:tennistournament/utils/parsers.dart';
 
 class Match {
-  Match({
-    @required this.id,
-    @required this.idPlayer1,
-    @required this.idPlayer2,
-    @required this.result1,
-    @required this.result2,
-    @required this.date,
-    @required this.tournament,
-    @required this.round,
-    @required this.category
-  });
+  Match(
+      {@required this.id,
+      @required this.idPlayer1,
+      @required this.idPlayer2,
+      @required this.result1,
+      @required this.result2,
+      @required this.date,
+      @required this.tournament,
+      @required this.round,
+      @required this.category});
+
+  Match.fromJson(String id, Map<String, dynamic> matchData)
+      : id = id,
+        idPlayer1 = matchData["player1"],
+        idPlayer2 = matchData["player2"],
+        result1 = parseResult(matchData["result1"]),
+        result2 = parseResult(matchData["result2"]),
+        date = parseDate(matchData["date"]),
+        tournament = matchData["tournament"],
+        round = matchData["round"],
+        category = matchData["category"];
 
   final String id;
   final String idPlayer1;
@@ -32,19 +45,20 @@ class Match {
   }
 
   List<String> getColouredResult(bool firstPlayer) {
-    if(firstPlayer) {
+    if (firstPlayer) {
       final result = result1;
-      for(int i = 0; i < result.length; i++) {
-        if(int.parse(result[i]) > int.parse(result2[i])) result[i] = result[i][0] + " ";
+      for (int i = 0; i < result.length; i++) {
+        if (int.parse(result[i]) > int.parse(result2[i]))
+          result[i] = result[i][0] + " ";
       }
       return result;
     } else {
       final result = result2;
-      for(int i = 0; i < result.length; i++) {
-        if(int.parse(result[i]) > int.parse(result1[i])) result[i] = result[i][0] + " ";
+      for (int i = 0; i < result.length; i++) {
+        if (int.parse(result[i]) > int.parse(result1[i]))
+          result[i] = result[i][0] + " ";
       }
       return result;
     }
   }
-
 }

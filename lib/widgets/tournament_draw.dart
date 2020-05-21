@@ -69,7 +69,7 @@ class TournamentDraw extends StatelessWidget {
         height: 1000,
         width: 1000,
         child: Row(
-          children: tournament.draws[selectedCategory].draw.entries
+          children: tournament.draws[selectedCategory].getSortedDraw().entries
               .map(
                 (entry) => _buildRoundColumn(entry.value, entry.key,
                     matchesData, playerData, rankingData),

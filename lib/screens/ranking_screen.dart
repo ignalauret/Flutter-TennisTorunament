@@ -33,6 +33,7 @@ class _RankingScreenState extends State<RankingScreen> {
     final ranking =
         Provider.of<Ranking>(context).fetchRanking(selectedCategory);
     final playerData = Provider.of<Players>(context);
+    playerData.fetchPlayers();
     return Container(
       color: BACKGROUND_COLOR,
       child: Column(

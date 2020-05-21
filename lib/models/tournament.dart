@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tennistournament/models/Draw.dart';
+import 'package:tennistournament/utils/date_methods.dart';
+import 'package:tennistournament/utils/parsers.dart';
 
 class Tournament {
   Tournament({
@@ -12,6 +14,16 @@ class Tournament {
     this.winners = const {"A": "0", "B": "", "C": ""},
     this.draws,
   });
+
+  Tournament.fromJson(String id, Map<String, dynamic> tournamentData)
+      : id = id,
+        name = tournamentData["name"],
+        club = tournamentData["club"],
+        start = parseDate(tournamentData["start"]),
+        end = parseDate(tournamentData["end"]),
+        winners = Map<String, String>.from(tournamentData["winners"]),
+        players = parsePlayers(Map<String, List>.from(tournamentData["players"])),
+        draws = parseDraws(Map<String,Map>.from(tournamentData["draws"]));
 
   final String id;
   final String name;
