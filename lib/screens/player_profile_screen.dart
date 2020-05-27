@@ -272,8 +272,8 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                     children: <Widget>[
                       _buildBigStat(
                           "Titulos",
-                          tournamentsData.getPlayerTitles(player.id).toString(),
-                          "Jugados: ${tournamentsData.getPlayersPlayedTournaments(player.id)}",
+                          tournamentsData.getPlayerTitles(player.id, selectedCategory).toString(),
+                          "Jugados: ${tournamentsData.getPlayersPlayedTournaments(player.id, selectedCategory)}",
                           size),
                       _buildBigStat(
                           "Victorias",

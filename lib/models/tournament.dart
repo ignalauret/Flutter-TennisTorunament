@@ -75,6 +75,10 @@ class Tournament {
     return winners[category] == id;
   }
 
+  bool hasPlayed(String id, String category) {
+    return players[category].contains(id);
+  }
+
   int getPlayerTitles(String id) {
     int result = 0;
     winners.forEach((category, pid) {

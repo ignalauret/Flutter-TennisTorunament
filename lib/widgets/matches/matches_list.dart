@@ -36,7 +36,8 @@ class MatchesList extends StatelessWidget {
           );
         final List<Match> matchesList = snapshot.data;
         // Remove bye matches.
-        matchesList.removeWhere((match) => match.idPlayer1 == "-1" || match.idPlayer2 == "-1");
+        matchesList.removeWhere(
+            (match) => match.idPlayer1 == "-1" || match.idPlayer2 == "-1");
         if (date != null)
           matchesList.removeWhere((match) => !isSameDay(match.date, date));
         if (playerId != null)
@@ -53,7 +54,10 @@ class MatchesList extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   "No hay partidos",
-                  style: TITLE_STYLE,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
                 ),
               )
             : Container(
