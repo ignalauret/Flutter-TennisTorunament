@@ -21,6 +21,65 @@ class DrawMatchCard extends StatelessWidget {
   final List<String> result2;
   final bool isFirstWinner;
 
+  Widget _buildPlayerName(String name, String ranking, bool winner) {
+    return Container(
+      width: 130,
+      height: DRAW_MATCH_HEIGHT * 0.32,
+      child: Row(
+        children: <Widget>[
+          RankingBadge(
+            ranking,
+            size: 15,
+          ),
+          Container(
+            width: 90,
+            height: DRAW_MATCH_HEIGHT * 0.32,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                name,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                textAlign: TextAlign.start,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          if (winner)
+            Icon(
+              Icons.check,
+              size: 12,
+              color: ACCENT_COLOR,
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildResult(double resultWidth, List<String> result) {
+    return Container(
+      height: DRAW_MATCH_HEIGHT * 0.32,
+      width: resultWidth,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: result.map((score) {
+          return Container(
+            padding: const EdgeInsets.all(5),
+            child: Text(
+              score[0],
+              style: TextStyle(
+                color: score.length == 2 ? ACCENT_COLOR : Colors.black,
+                fontSize: 12,
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
   Widget _buildPlayerRow(
     String name,
     List<String> result,
@@ -31,48 +90,8 @@ class DrawMatchCard extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Container(
-          width: 130,
-          child: Row(
-            children: <Widget>[
-              RankingBadge(
-                ranking,
-                size: 15,
-              ),
-              Text(
-                name,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              if (winner)
-                Icon(
-                  Icons.check,
-                  size: 12,
-                  color: ACCENT_COLOR,
-                ),
-            ],
-          ),
-        ),
-        Container(
-          width: resultWidth,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: result.map((score) {
-              return Container(
-                padding: const EdgeInsets.all(5),
-                child: Text(
-                  score[0],
-                  style: TextStyle(
-                    color: score.length == 2 ? ACCENT_COLOR : Colors.black,
-                    fontSize: 12,
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        )
+        _buildPlayerName(name, ranking, winner),
+        _buildResult(resultWidth, result),
       ],
     );
   }

@@ -35,6 +35,7 @@ class Draw {
   }
 
   String get actualRound {
+    // Find last unplayed match
     final int lastIndex = _draw.lastIndexWhere((match) => match[match.length-1] == ",");
     if(lastIndex == -1) return "Terminado";
     return Rounds[log2(lastIndex + 1).floor()];

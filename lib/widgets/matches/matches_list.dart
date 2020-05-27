@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/date_time_patterns.dart';
 import 'package:provider/provider.dart';
+import 'package:tennistournament/models/match.dart';
 import 'package:tennistournament/providers/players.dart';
 import 'package:tennistournament/providers/ranking.dart';
 import 'package:tennistournament/providers/tournaments.dart';
@@ -34,8 +34,9 @@ class MatchesList extends StatelessWidget {
           return Center(
             child: CircularProgressIndicator(),
           );
-        final matchesList = snapshot.data;
-        // Retain only the played matches
+        final List<Match> matchesList = snapshot.data;
+        // Remove bye matches.
+        matchesList.removeWhere((match) => match.idPlayer1 == "-1" || match.idPlayer2 == "-1");
         if (date != null)
           matchesList.removeWhere((match) => !isSameDay(match.date, date));
         if (playerId != null)
