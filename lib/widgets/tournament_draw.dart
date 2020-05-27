@@ -1,8 +1,8 @@
+import 'package:diagonal_scrollview/diagonal_scrollview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournament/models/match.dart';
 import 'package:tennistournament/models/tournament.dart';
-import 'package:bidirectional_scroll_view/bidirectional_scroll_view.dart';
 import 'package:tennistournament/providers/matches.dart';
 import 'package:tennistournament/providers/players.dart';
 import 'package:tennistournament/providers/ranking.dart';
@@ -10,22 +10,26 @@ import 'package:tennistournament/utils/constants.dart';
 import 'package:tennistournament/utils/math_methods.dart';
 import 'package:tennistournament/widgets/matches/DrawMatchCard.dart';
 
-class TournamentDraw extends StatelessWidget {
+class TournamentDraw extends StatefulWidget {
   TournamentDraw(this.tournament, this.selectedCategory);
   final Tournament tournament;
   final String selectedCategory;
+  @override
+  _TournamentDrawState createState() => _TournamentDrawState();
+}
 
+class _TournamentDrawState extends State<TournamentDraw> {
   Widget _buildMatchCard(
     Match match,
     Players playerData,
     Ranking rankingData,
-    double margin,
+    double bottomMargin,
   ) {
     final name1 = playerData.getPlayerName(match.idPlayer1);
     final name2 = playerData.getPlayerName(match.idPlayer2);
     return Container(
       height: DRAW_MATCH_HEIGHT,
-      margin: EdgeInsets.symmetric(horizontal: 0, vertical: margin),
+      margin: EdgeInsets.only(bottom: bottomMargin),
       alignment: Alignment.center,
       child: DrawMatchCard(
         name1: name1,
@@ -39,19 +43,31 @@ class TournamentDraw extends StatelessWidget {
     );
   }
 
-  Widget _buildUnplayedMatch(String idPlayer1, String idPlayer2, Players playerData,
-      Ranking rankingData, double margin) {
+  Widget _buildUnplayedMatch(
+      String round,
+      int matchIndex,
+      String tid,
+      String selectedCategory,
+      String idPlayer1,
+      String idPlayer2,
+      Players playerData,
+      Ranking rankingData,
+      double bottomMargin) {
     final name1 = idPlayer1.isEmpty ? "" : playerData.getPlayerName(idPlayer1);
     final name2 = idPlayer2.isEmpty ? "" : playerData.getPlayerName(idPlayer2);
     return Container(
       height: DRAW_MATCH_HEIGHT,
-      margin: EdgeInsets.symmetric(horizontal: 0, vertical: margin),
+      margin: EdgeInsets.only(bottom: bottomMargin),
       alignment: Alignment.center,
       child: DrawMatchCard(
         name1: name1,
         name2: name2,
-        ranking1:  idPlayer1.isEmpty ? "-" : rankingData.getRankingOf(idPlayer1, selectedCategory),
-        ranking2:  idPlayer2.isEmpty ? "-" : rankingData.getRankingOf(idPlayer2, selectedCategory),
+        ranking1: idPlayer1.isEmpty
+            ? "-"
+            : rankingData.getRankingOf(idPlayer1, selectedCategory),
+        ranking2: idPlayer2.isEmpty
+            ? "-"
+            : rankingData.getRankingOf(idPlayer2, selectedCategory),
         result1: ["  ", "  ", "  "],
         result2: ["  ", "  ", "  "],
         isFirstWinner: false,
@@ -59,32 +75,71 @@ class TournamentDraw extends StatelessWidget {
     );
   }
 
-  Widget _buildRoundColumn(List<String> matches, String title,
-      Matches matchesData, Players playerData, Ranking rankingData) {
+  List<Widget> _buildMatches({
+    Tournament tournament,
+    String selectedCategory,
+    List<String> matches,
+    String title,
+    Matches matchesData,
+    Players playerData,
+    Ranking rankingData,
+  }) {
+    final List<Widget> result = [];
+    for (int i = 0; i < matches.length; i++) {
+      final data = matches[i].split(",");
+      if (data[2] != "")
+        result.add(
+          _buildMatchCard(
+            matchesData.getMatchById(data[2]),
+            playerData,
+            rankingData,
+            getMargin(tournament.draws[selectedCategory], matches.length, i),
+          ),
+        );
+      else
+        result.add(
+          _buildUnplayedMatch(
+            title,
+            getMatchIndex(matches.length, i),
+            tournament.id,
+            selectedCategory,
+            data[0],
+            data[1],
+            playerData,
+            rankingData,
+            getMargin(tournament.draws[selectedCategory], matches.length, i),
+          ),
+        );
+    }
+    return result;
+  }
+
+  Widget _buildRoundColumn({
+    Tournament tournament,
+    String selectedCategory,
+    List<String> matches,
+    String title,
+    Matches matchesData,
+    Players playerData,
+    Ranking rankingData,
+  }) {
     return Column(
       children: <Widget>[
         Text(
           title,
           style: TITLE_STYLE,
         ),
-        ...matches.map(
-          (matchData) {
-            final data = matchData.split(",");
-            if (data[2] != "")
-              return _buildMatchCard(
-                matchesData.getMatchById(data[2]),
-                playerData,
-                rankingData,
-                getMargin(tournament.draws[selectedCategory], matches.length),
-              );
-            return _buildUnplayedMatch(
-                data[0],
-                data[1],
-                playerData,
-                rankingData,
-                getMargin(tournament.draws[selectedCategory], matches.length));
-          },
-        )
+        SizedBox(
+          height:
+              getTopOffset(tournament.draws[selectedCategory], matches.length),
+        ),
+        ..._buildMatches(
+            tournament: tournament,
+            selectedCategory: selectedCategory,
+            matchesData: matchesData,
+            matches: matches,
+            playerData: playerData,
+            rankingData: rankingData),
       ],
     );
   }
@@ -94,19 +149,33 @@ class TournamentDraw extends StatelessWidget {
     final matchesData = Provider.of<Matches>(context);
     final playerData = Provider.of<Players>(context);
     final rankingData = Provider.of<Ranking>(context);
-    return BidirectionalScrollViewPlugin(
-      child: Container(
-        height: 1000,
-        width: 1000,
-        child: Row(
-          children: tournament.draws[selectedCategory]
-              .getSortedDraw()
-              .entries
-              .map(
-                (entry) => _buildRoundColumn(entry.value, entry.key,
-                    matchesData, playerData, rankingData),
-              )
-              .toList(),
+    return Container(
+      child: DiagonalScrollView(
+        maxHeight:
+            widget.tournament.draws[widget.selectedCategory].drawHeight + 20,
+        maxWidth: 1000,
+        child: Container(
+          height:
+              widget.tournament.draws[widget.selectedCategory].drawHeight + 20,
+          width: 1000,
+          margin: const EdgeInsets.all(15),
+          child: Row(
+            children: widget.tournament.draws[widget.selectedCategory]
+                .getSortedDraw()
+                .entries
+                .map(
+                  (entry) => _buildRoundColumn(
+                    matches: entry.value,
+                    title: entry.key,
+                    matchesData: matchesData,
+                    playerData: playerData,
+                    rankingData: rankingData,
+                    tournament: widget.tournament,
+                    selectedCategory: widget.selectedCategory,
+                  ),
+                )
+                .toList(),
+          ),
         ),
       ),
     );

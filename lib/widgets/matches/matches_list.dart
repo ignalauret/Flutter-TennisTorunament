@@ -10,8 +10,13 @@ import 'package:tennistournament/widgets/matches/matches_list_item.dart';
 import '../../providers/matches.dart';
 
 class MatchesList extends StatelessWidget {
-  MatchesList(
-      {this.date, this.playerId, this.tournamentId, this.selectedCategory});
+  MatchesList({
+    this.date,
+    this.playerId,
+    this.tournamentId,
+    this.selectedCategory,
+  });
+
   final DateTime date;
   final String playerId;
   final String tournamentId;
@@ -21,7 +26,7 @@ class MatchesList extends StatelessWidget {
     final tournamentsData = Provider.of<Tournaments>(context);
     final matchesData = Provider.of<Matches>(context);
     final playerData = Provider.of<Players>(context);
-    //final rankingData = Provider.of<Ranking>(context);
+    final rankingData = Provider.of<Ranking>(context);
     return FutureBuilder(
       future: matchesData.fetchMatches(),
       builder: (ctx, snapshot) {
@@ -30,6 +35,7 @@ class MatchesList extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         final matchesList = snapshot.data;
+        // Retain only the played matches
         if (date != null)
           matchesList.removeWhere((match) => !isSameDay(match.date, date));
         if (playerId != null)
@@ -62,12 +68,10 @@ class MatchesList extends StatelessWidget {
                     return MatchesListItem(
                       name1: name1,
                       name2: name2,
-                      ranking1: "1",
-                      ranking2: "2",
-//                      ranking1: rankingData.getRankingOf(
-//                          match.idPlayer1, match.category),
-//                      ranking2: rankingData.getRankingOf(
-//                          match.idPlayer2, match.category),
+                      ranking1: rankingData.getRankingOf(
+                          match.idPlayer1, match.category),
+                      ranking2: rankingData.getRankingOf(
+                          match.idPlayer2, match.category),
                       result1: match.getColouredResult(true),
                       result2: match.getColouredResult(false),
                       isFirstWinner: match.isFirstWinner,

@@ -41,22 +41,32 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            label,
-            style: TextStyle(color: ACCENT_COLOR, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            value,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              label,
+              style:
+                  TextStyle(color: ACCENT_COLOR, fontWeight: FontWeight.bold),
             ),
           ),
-          Text(
-            date,
-            style: TextStyle(
-              color: Colors.grey,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              value,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              date,
+              style: TextStyle(
+                color: Colors.grey,
+              ),
             ),
           ),
         ],
@@ -203,13 +213,25 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
+                      tournament.getActualRound(selectedCategory) == "Terminado"
+                          ? _buildBigStat(
+                              "Campeón",
+                              playerData.getPlayerName(
+                                  tournament.getWinnerId(selectedCategory)),
+                              "Inscriptos: ${tournament.getInitialPlayersOfCat(selectedCategory).toString()}",
+                              size)
+                          : _buildBigStat(
+                              "Jugadores Restantes",
+                              tournament
+                                  .getRemainingPlayers(selectedCategory)
+                                  .toString(),
+                              "Inscriptos: ${tournament.getInitialPlayersOfCat(selectedCategory).toString()}",
+                              size),
                       _buildBigStat(
-                          "Jugadores Restantes",
-                          tournament.playerCount.toString(),
-                          "Inscriptos: 11",
+                          "Ronda actual",
+                          tournament.getActualRound(selectedCategory),
+                          "Inicio: ${tournament.getStartingRound(selectedCategory)}",
                           size),
-                      _buildBigStat("Ronda actual", "Semifinal",
-                          "Inicio: Ronda de 32", size),
                     ],
                   ),
                   Row(
@@ -254,8 +276,12 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
                             borderRadius: BorderRadius.circular(BORDER_RADIUS),
                           ),
                           onPressed: () {
-                            Navigator.of(context)
-                                .pushNamed(TournamentDrawScreen.routeName, arguments: tournament);
+                            Navigator.of(context).pushNamed(
+                                TournamentDrawScreen.routeName,
+                                arguments: {
+                                  "tournament": tournament,
+                                  "selectedCategory": selectedCategory
+                                });
                           },
                         ),
                       ),

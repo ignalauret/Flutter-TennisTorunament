@@ -62,7 +62,7 @@ class TournamentsListItem extends StatelessWidget {
             ),
             _buildInfo(
               Icons.people,
-              tournament.playerCount.toString() + " inscriptos",
+              tournament.getInitialPlayers().toString() + " inscriptos",
             ),
           ],
         ),

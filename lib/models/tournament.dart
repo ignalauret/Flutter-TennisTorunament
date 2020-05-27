@@ -11,7 +11,7 @@ class Tournament {
     @required this.players,
     @required this.start,
     @required this.end,
-    this.winners = const {"A": "0", "B": "", "C": ""},
+    this.winners = const {"A": "", "B": "", "C": ""},
     this.draws,
   });
 
@@ -21,9 +21,12 @@ class Tournament {
         club = tournamentData["club"],
         start = parseDate(tournamentData["start"]),
         end = parseDate(tournamentData["end"]),
-        winners = Map<String, String>.from(tournamentData["winners"]),
-        players = parsePlayers(Map<String, List>.from(tournamentData["players"])),
-        draws = parseDraws(Map<String,Map>.from(tournamentData["draws"]));
+        winners = tournamentData["winners"] == null
+            ? {}
+            : Map<String, String>.from(tournamentData["winners"]),
+        players =
+            parsePlayers(Map<String, List>.from(tournamentData["players"])),
+        draws = parseDraws(Map<String, List>.from(tournamentData["draws"]));
 
   final String id;
   final String name;
@@ -34,10 +37,38 @@ class Tournament {
   final Map<String, String> winners;
   final Map<String, Draw> draws;
 
-  int get playerCount {
+  /* Getters */
+
+  String getWinnerId(String category) {
+    return winners[category];
+  }
+
+  int getInitialPlayers() {
     int result = 0;
-    players.forEach((key, playersList) => result += playersList.length);
+    players.forEach((_, list) {
+      if (list.length == 1) return;
+      result += list.length;
+    });
     return result;
+  }
+
+  int getInitialPlayersOfCat(String category) {
+    return players[category].length;
+  }
+
+  int getRemainingPlayers(String category) {
+    // Remaining Players = Initial players - Matches played
+    final playedMatches = draws[category].draw.fold(
+        0, (prev, match) => match[match.length - 1] == "," ? prev : prev + 1);
+    return getInitialPlayersOfCat(category) - playedMatches;
+  }
+
+  String getStartingRound(String category) {
+    return draws[category].startingRound;
+  }
+
+  String getActualRound(String category) {
+    return draws[category].actualRound;
   }
 
   bool isWinner(String id, String category) {

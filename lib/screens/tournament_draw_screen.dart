@@ -15,7 +15,8 @@ class TournamentDrawScreen extends StatefulWidget {
 
 class _TournamentDrawScreenState extends State<TournamentDrawScreen> {
   String selectedCategory = "A";
-  String selectedDisplay = "Jugadores";
+  String selectedDisplay = "Cuadro";
+  bool startingCategory = true;
 
   void selectCategory(String category) {
     setState(() {
@@ -29,7 +30,7 @@ class _TournamentDrawScreenState extends State<TournamentDrawScreen> {
     });
   }
 
-  Widget _buildDiplay(Tournament tournament) {
+  Widget _buildDisplay(Tournament tournament) {
     switch (selectedDisplay) {
       case "Jugadores":
         return PlayersList(
@@ -41,13 +42,21 @@ class _TournamentDrawScreenState extends State<TournamentDrawScreen> {
           tournamentId: tournament.id,
           selectedCategory: selectedCategory,
         );
+      default:
+        return Container();
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> argsMap =
+        ModalRoute.of(context).settings.arguments;
+    if(startingCategory) {
+      startingCategory = false;
+      selectedCategory = argsMap["selectedCategory"];
+    }
     final size = MediaQuery.of(context).size;
-    final Tournament tournament = ModalRoute.of(context).settings.arguments;
+    final Tournament tournament = argsMap["tournament"];
     return Scaffold(
       backgroundColor: MAIN_COLOR,
       body: Column(
@@ -98,7 +107,7 @@ class _TournamentDrawScreenState extends State<TournamentDrawScreen> {
             "Partidos",
           ], selectDisplay, selectedDisplay),
           Expanded(
-            child: _buildDiplay(tournament),
+            child: _buildDisplay(tournament),
           ),
         ],
       ),

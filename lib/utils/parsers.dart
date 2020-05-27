@@ -1,6 +1,7 @@
 import 'package:tennistournament/models/Draw.dart';
 
 Map<String, List<String>> parsePlayers(Map<String, List> players) {
+  print(players);
   final Map<String, List<String>> result = {};
   players.forEach(
     (key, list) => result.addAll(
@@ -17,15 +18,12 @@ List<String> parseResult(String result) {
   return result.split(".");
 }
 
-Map<String, Draw> parseDraws(Map<String, Map> draws) {
+Map<String, Draw> parseDraws(Map<String, List> draws) {
   final Map<String, Draw> result = {};
-  draws.values.forEach((map) {
-    result.addAll({"A": Draw({})});
-    map.forEach((round, list) {
-      print(round);
-      result["A"].draw.addAll({round: []});
-      print(result["A"].draw.keys);
-      (list as List).forEach((match) => result["A"].draw[round].add(match));
+  draws.forEach((category, matches) {
+    result.addAll({category: Draw([])});
+    matches.forEach((match) {
+      result[category].addMatch(match);
     });
   });
   return result;
