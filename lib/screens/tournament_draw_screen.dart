@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tennistournament/models/tournament.dart';
 import 'package:tennistournament/utils/constants.dart';
+import 'package:tennistournament/widgets/back_button_header.dart';
 import 'package:tennistournament/widgets/category_buttons.dart';
 import 'package:tennistournament/widgets/matches/matches_list.dart';
 import 'package:tennistournament/widgets/players/players_list.dart';
@@ -51,7 +52,7 @@ class _TournamentDrawScreenState extends State<TournamentDrawScreen> {
   Widget build(BuildContext context) {
     final Map<String, dynamic> argsMap =
         ModalRoute.of(context).settings.arguments;
-    if(startingCategory) {
+    if (startingCategory) {
       startingCategory = false;
       selectedCategory = argsMap["selectedCategory"];
     }
@@ -61,44 +62,8 @@ class _TournamentDrawScreenState extends State<TournamentDrawScreen> {
       backgroundColor: MAIN_COLOR,
       body: Column(
         children: <Widget>[
-          Stack(
-            children: <Widget>[
-              Container(
-                height: size.height * 0.05,
-                width: size.width,
-                margin: const EdgeInsets.only(top: 30, bottom: 10),
-              ),
-              Positioned(
-                top: size.height * 0.03,
-                left: size.width * 0.03,
-                width: 80,
-                child: FlatButton(
-                  padding: const EdgeInsets.only(
-                      top: 10, bottom: 10, right: 10, left: 2),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(
-                        Icons.arrow_back,
-                        color: ACCENT_COLOR,
-                        size: 20,
-                      ),
-                      Text(
-                        "Volver",
-                        style: BUTTON_STYLE,
-                      ),
-                    ],
-                  ),
-                  color: Colors.black45,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(BORDER_RADIUS),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ),
-            ],
+          BackButtonHeader(
+            title: "Cuadro de ${tournament.name}",
           ),
           CategoryButtons(selectCategory, selectedCategory),
           SelectionButtons([

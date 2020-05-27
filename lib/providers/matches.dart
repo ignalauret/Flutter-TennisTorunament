@@ -20,25 +20,39 @@ class Matches extends ChangeNotifier {
     return [..._matches];
   }
 
-  Map<String, Map<String, int>> getPlayerStats(String id) {
-    Map<String, Map<String, int>> result = {};
-    Categories.forEach((category) {
-      final matches = _matches.where((match) =>
+  int getPlayedMatches(String id, String category) {
+    final matches = _matches.where((match) =>
           (match.idPlayer1 == id || match.idPlayer2 == id) &&
           match.category == category);
-      final wins = matches.fold(
-          0, (prev, match) => match.winnerId == id ? prev + 1 : prev);
-      final tournaments = 1; //TODO
-      result.addAll({
-        category: {
-          "played": matches.length,
-          "wins": wins,
-          "tournaments": tournaments
-        }
-      });
-    });
-    return result;
+    return matches.length;
   }
+
+  int getPlayerWins(String id, String category) {
+    final matches = _matches.where((match) =>
+    (match.idPlayer1 == id || match.idPlayer2 == id) &&
+        match.category == category && match.winnerId == id);
+    return matches.length;
+  }
+
+//  Map<String, Map<String, int>> getPlayerStats(String id) {
+//    Map<String, Map<String, int>> result = {};
+//    Categories.forEach((category) {
+//      final matches = _matches.where((match) =>
+//          (match.idPlayer1 == id || match.idPlayer2 == id) &&
+//          match.category == category);
+//      final wins = matches.fold(
+//          0, (prev, match) => match.winnerId == id ? prev + 1 : prev);
+//      final tournaments = 1; //TODO
+//      result.addAll({
+//        category: {
+//          "played": matches.length,
+//          "wins": wins,
+//          "tournaments": tournaments
+//        }
+//      });
+//    });
+//    return result;
+//  }
 
   Match getMatchById(String id) {
     return _matches.firstWhere((match) => match.id == id);

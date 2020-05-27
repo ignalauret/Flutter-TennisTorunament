@@ -5,6 +5,7 @@ import 'package:tennistournament/models/player.dart';
 import 'package:tennistournament/providers/matches.dart';
 import 'package:tennistournament/providers/ranking.dart';
 import 'package:tennistournament/providers/tournaments.dart';
+import 'package:tennistournament/screens/player_matches_screen.dart';
 import 'package:tennistournament/utils/constants.dart';
 import 'package:tennistournament/utils/stats_methods.dart';
 import 'package:tennistournament/widgets/category_buttons.dart';
@@ -79,22 +80,32 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            label,
-            style: TextStyle(color: ACCENT_COLOR, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            value,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              label,
+              style:
+                  TextStyle(color: ACCENT_COLOR, fontWeight: FontWeight.bold),
             ),
           ),
-          Text(
-            date,
-            style: TextStyle(
-              color: Colors.grey,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              value,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              date,
+              style: TextStyle(
+                color: Colors.grey,
+              ),
             ),
           ),
         ],
@@ -114,7 +125,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
     final size = MediaQuery.of(context).size;
     final rankingData = Provider.of<Ranking>(context);
     final matchesData = Provider.of<Matches>(context);
-    final playerStats = matchesData.getPlayerStats(player.id);
+    //final playerStats = matchesData.getPlayerStats(player.id);
     final tournamentsData = Provider.of<Tournaments>(context);
     return Scaffold(
       backgroundColor: MAIN_COLOR,
@@ -272,13 +283,22 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                     children: <Widget>[
                       _buildBigStat(
                           "Titulos",
-                          tournamentsData.getPlayerTitles(player.id, selectedCategory).toString(),
+                          tournamentsData
+                              .getPlayerTitles(player.id, selectedCategory)
+                              .toString(),
                           "Jugados: ${tournamentsData.getPlayersPlayedTournaments(player.id, selectedCategory)}",
                           size),
                       _buildBigStat(
                           "Victorias",
-                          playerStats[selectedCategory]["wins"].toString(),
-                          "Ratio: ${getWinsRatio(playerStats[selectedCategory]["played"], playerStats[selectedCategory]["wins"])}",
+                          matchesData
+                              .getPlayerWins(player.id, selectedCategory)
+                              .toString(),
+                          "Ratio: ${getWinsRatio(
+                            matchesData.getPlayedMatches(
+                                player.id, selectedCategory),
+                            matchesData.getPlayerWins(
+                                player.id, selectedCategory),
+                          )}",
                           size),
                     ],
                   ),
@@ -323,7 +343,11 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(BORDER_RADIUS),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                                PlayerMatchesScreen.routeName,
+                                arguments: player.id);
+                          },
                         ),
                       ),
                     ],

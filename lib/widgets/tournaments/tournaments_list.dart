@@ -13,14 +13,21 @@ class TournamentsList extends StatelessWidget {
     return FutureBuilder(
       future: tournamentsData.fetchTournaments(),
       builder: (ctx, snapshot) {
-        if (snapshot == null || snapshot.data == null) return Center(child: CircularProgressIndicator());
+        if (snapshot == null || snapshot.data == null)
+          return Center(child: CircularProgressIndicator());
         final List<Tournament> tournaments = snapshot.data;
         if (date != null)
           tournaments.removeWhere((tournament) =>
               tournament.start.isAfter(date) || tournament.end.isBefore(date));
         return tournaments.length == 0
             ? Center(
-                child: Text("No hay torneos activos en esta fecha"),
+                child: Text(
+                  "No hay torneos activos en esta fecha",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
+                ),
               )
             : ListView.builder(
                 scrollDirection: Axis.horizontal,

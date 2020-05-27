@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournament/models/player.dart';
 import 'package:tennistournament/providers/ranking.dart';
+import 'package:tennistournament/providers/tournaments.dart';
 import 'package:tennistournament/screens/player_profile_screen.dart';
 import 'package:tennistournament/utils/constants.dart';
 import 'package:tennistournament/widgets/ranking/ranking_badge.dart';
@@ -29,6 +30,7 @@ class RankingPodium extends StatelessWidget {
     int ranking,
     Player player,
     Size size,
+    Tournaments tournamentData,
     BuildContext context,
   }) {
     return Positioned(
@@ -72,7 +74,7 @@ class RankingPodium extends StatelessWidget {
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  "Torneos jugados: 1",
+                  "Torneos jugados: ${tournamentData.getPlayersPlayedTournaments(player.id, selectedCategory)}",
                   style: greyTournaments,
                 ),
               ),
@@ -87,6 +89,7 @@ class RankingPodium extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final rankingData = Provider.of<Ranking>(context);
+    final tournamentData = Provider.of<Tournaments>(context);
 
     return Stack(
       children: <Widget>[
@@ -106,18 +109,21 @@ class RankingPodium extends StatelessWidget {
           ranking: 1,
           player: players[0],
           size: size,
+          tournamentData: tournamentData,
           context: context,
         ),
         _buildPodium(
           ranking: 2,
           player: players[1],
           size: size,
+          tournamentData: tournamentData,
           context: context,
         ),
         _buildPodium(
           ranking: 3,
           player: players[2],
           size: size,
+          tournamentData: tournamentData,
           context: context,
         ),
         Positioned(
