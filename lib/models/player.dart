@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tennistournament/utils/date_methods.dart';
+import 'package:tennistournament/utils/parsers.dart';
 
 enum Backhand { OneHanded, TwoHanded }
 enum Handed { Right, Left }

@@ -23,7 +23,7 @@ class Match {
         idPlayer2 = matchData["player2"],
         result1 = parseResult(matchData["result1"]),
         result2 = parseResult(matchData["result2"]),
-        date = parseDate(matchData["date"]),
+        date = parseDateWithHour(matchData["date"]),
         tournament = matchData["tournament"],
         round = matchData["round"],
         category = matchData["category"],

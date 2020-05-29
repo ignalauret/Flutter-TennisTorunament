@@ -143,7 +143,7 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
                   width: size.width,
                   margin: const EdgeInsets.only(top: 30, bottom: 10),
                   child: Image.network(
-                    "https://vignette.wikia.nocookie.net/logopedia/images/a/a9/Austopen2017.png/revision/latest/scale-to-width-down/340?cb=20171231140337",
+                    tournament.logoUrl,
                   ),
                 ),
                 Positioned(

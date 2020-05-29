@@ -28,6 +28,11 @@ const TextStyle MATCH_INFO_STYLE = TextStyle(
 );
 
 final Color BACKGROUND_COLOR = Color.fromRGBO(238, 238, 238, 1);
+// RG
+// Color MAIN_COLOR = Color.fromRGBO(0, 76, 46, 1);
+// Color ACCENT_COLOR = Color.fromRGBO(240, 90, 2, 1);
+
+// ATP
 const Color MAIN_COLOR = Color(0xFF002865);
 const Color ACCENT_COLOR = Color(0xFF00AFF0);
 

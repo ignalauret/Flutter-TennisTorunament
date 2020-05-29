@@ -95,8 +95,8 @@ class HeadToHead extends StatelessWidget {
           _buildImagesRow(
             imageUrl1: player1.profileUrl,
             imageUrl2: player2.profileUrl,
-            wins1: 3, //versus[0],
-            wins2: 2, //versus[1],
+            wins1: versus[0],
+            wins2: versus[1],
           ),
           Container(
             margin: const EdgeInsets.only(top: 5, bottom: 2),
