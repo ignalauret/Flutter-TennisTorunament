@@ -24,7 +24,7 @@ class TournamentsList extends StatelessWidget {
                 child: Text(
                   "No hay torneos activos en esta fecha",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.grey,
                     fontSize: 15,
                   ),
                 ),

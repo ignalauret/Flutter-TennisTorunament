@@ -31,7 +31,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
     return Container(
       height: size.height * 0.06,
       width: size.width * 0.3,
-      padding: EdgeInsets.all(size.height * 0.005),
+      padding: EdgeInsets.symmetric(vertical: size.height * 0.005, horizontal: 10),
       margin: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: 5),
       alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -81,7 +81,6 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           FittedBox(
-            fit: BoxFit.scaleDown,
             child: Text(
               label,
               style:
@@ -89,7 +88,6 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
             ),
           ),
           FittedBox(
-            fit: BoxFit.scaleDown,
             child: Text(
               value,
               style: TextStyle(
@@ -293,7 +291,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                           matchesData
                               .getPlayerWins(player.id, selectedCategory)
                               .toString(),
-                          "Ratio: ${getWinsRatio(
+                          "% Victorias: ${getWinsRatio(
                             matchesData.getPlayedMatches(
                                 player.id, selectedCategory),
                             matchesData.getPlayerWins(

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:tennistournament/models/tournament.dart';
 import 'package:http/http.dart' as http;
+import 'package:tennistournament/providers/matches.dart';
 
 class Tournaments extends ChangeNotifier {
   final List<Tournament> _tournaments = [];
@@ -25,6 +26,14 @@ class Tournaments extends ChangeNotifier {
 
   String getTournamentName(String id) {
     return getTournamentById(id).name;
+  }
+
+  int getAllPlayerTitles(String id) {
+    int result = 0;
+    Categories.forEach((category) {
+      result += getPlayerTitles(id, category);
+    });
+    return result;
   }
 
   int getPlayerTitles(String id, String category) {

@@ -22,6 +22,7 @@ dependencies:
   intl:
   curved_navigation_bar:
   diagonal_scrollview: ^0.1.0
+  charts_flutter: ^0.6.0
   flutter:
     sdk: flutter
 
@@ -60,6 +61,7 @@ flutter:
     - assets/img/ignacio_lauret_image.png
     - assets/img/ignacio_lauret_profile.png
     - assets/img/argentina_flag.png
+    - assets/img/default_match.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

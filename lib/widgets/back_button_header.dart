@@ -47,9 +47,11 @@ class BackButtonHeader extends StatelessWidget {
         Positioned(
           top: size.height * 0.03 + 16,
           right: size.width * 0.03,
-          width: size.width * 0.5,
+          width: size.width - 120,
+          height: 20,
           child: FittedBox(
             fit: BoxFit.scaleDown,
+            alignment: Alignment.centerRight,
             child: Text(
               title,
               style: TITLE_STYLE,

@@ -4,16 +4,18 @@ import 'package:tennistournament/utils/date_methods.dart';
 import 'package:tennistournament/utils/parsers.dart';
 
 class Match {
-  Match(
-      {@required this.id,
-      @required this.idPlayer1,
-      @required this.idPlayer2,
-      @required this.result1,
-      @required this.result2,
-      @required this.date,
-      @required this.tournament,
-      @required this.round,
-      @required this.category});
+  Match({
+    @required this.id,
+    @required this.idPlayer1,
+    @required this.idPlayer2,
+    @required this.result1,
+    @required this.result2,
+    @required this.date,
+    @required this.tournament,
+    @required this.round,
+    @required this.category,
+    this.imageUrl = "assets/img/default_match.jpg",
+  });
 
   Match.fromJson(String id, Map<String, dynamic> matchData)
       : id = id,
@@ -24,7 +26,8 @@ class Match {
         date = parseDate(matchData["date"]),
         tournament = matchData["tournament"],
         round = matchData["round"],
-        category = matchData["category"];
+        category = matchData["category"],
+        imageUrl = "assets/img/default_match.jpg";
 
   final String id;
   final String idPlayer1;
@@ -35,6 +38,7 @@ class Match {
   final String tournament;
   final String round;
   final String category;
+  final String imageUrl;
 
   bool get isFirstWinner {
     return int.parse(result1.last) > int.parse(result2.last);

@@ -205,9 +205,9 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
                   _buildFullWidthStat(
                       "Fecha",
                       "Del " +
-                          DateFormat("d/MM").format(tournament.start) +
+                          DateFormat("d/M").format(tournament.start) +
                           " al " +
-                          DateFormat("d/MM").format(tournament.end),
+                          DateFormat("d/M").format(tournament.end),
                       size),
                   CategoryButtons(selectCategory, selectedCategory),
                   Row(
