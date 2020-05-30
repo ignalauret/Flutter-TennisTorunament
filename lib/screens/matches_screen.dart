@@ -61,9 +61,9 @@ class _MatchesScreenState extends State<MatchesScreen> {
     return Column(
       children: <Widget>[
         Container(
-          height: size.height * 0.25 + 80,
+          height: size.height * 0.25 + 50,
           width: double.infinity,
-          padding: const EdgeInsets.only(top: 30, bottom: 0),
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(BORDER_RADIUS),

@@ -27,6 +27,8 @@ class _TabsControllerScreenState extends State<TabsControllerScreen> {
   ];
   Widget _buildAppBar() {
     return AppBar(
+      backgroundColor: MAIN_COLOR,
+      elevation: 0,
       title: Text(_titles[_tabIndex]),
     );
   }
@@ -34,6 +36,7 @@ class _TabsControllerScreenState extends State<TabsControllerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: _buildAppBar(),
       bottomNavigationBar: CurvedNavigationBar(
         height: 45,
         backgroundColor: BACKGROUND_COLOR,

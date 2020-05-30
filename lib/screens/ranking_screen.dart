@@ -39,20 +39,32 @@ class _RankingScreenState extends State<RankingScreen> {
       child: Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(
-              top: 30,
-              left: size.width * 0.05,
-              right: size.width * 0.05,
-              bottom: 3,
+            decoration: BoxDecoration(
+                color: MAIN_COLOR,
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(BORDER_RADIUS),
+                  bottomLeft: Radius.circular(BORDER_RADIUS),
+                )),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(
+                    top: 0,
+                    left: size.width * 0.05,
+                    right: size.width * 0.05,
+                    bottom: 0,
+                  ),
+                  color: MAIN_COLOR,
+                  child: CategoryButtons(selectCategory, selectedCategory),
+                ),
+                RankingPodium([
+                  playerData.getPlayerById(ranking[0]),
+                  playerData.getPlayerById(ranking[1]),
+                  playerData.getPlayerById(ranking[2]),
+                ], selectedCategory),
+              ],
             ),
-            color: MAIN_COLOR,
-            child: CategoryButtons(selectCategory, selectedCategory),
           ),
-          RankingPodium([
-            playerData.getPlayerById(ranking[0]),
-            playerData.getPlayerById(ranking[1]),
-            playerData.getPlayerById(ranking[2]),
-          ], selectedCategory),
           Container(
             height: 20,
             padding: const EdgeInsets.only(right: 23, left: 48),
@@ -70,13 +82,13 @@ class _RankingScreenState extends State<RankingScreen> {
                 ),
                 Expanded(
                   child: Text(
-                    "Torneos Jugados",
+                    "Jugados",
                     style: SMALL_TITLE_STYLE,
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.12,
+                  width: MediaQuery.of(context).size.width * 0.15,
                   child: Text(
                     "Puntos",
                     style: SMALL_TITLE_STYLE,

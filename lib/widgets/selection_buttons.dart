@@ -11,7 +11,7 @@ class SelectionButtons extends StatelessWidget {
       String text, bool selected, BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.30,
-      margin: const EdgeInsets.symmetric(vertical: 5),
+      margin: const EdgeInsets.symmetric(vertical: 0),
       child: FlatButton(
         padding: const EdgeInsets.all(15),
         onPressed: () => select(text),
