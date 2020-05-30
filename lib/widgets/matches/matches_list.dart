@@ -17,6 +17,7 @@ class MatchesList extends StatelessWidget {
     this.tournamentId,
     this.selectedCategory,
     this.dontShowMatch,
+    this.scrollable = true,
   });
 
   final DateTime date;
@@ -25,6 +26,7 @@ class MatchesList extends StatelessWidget {
   final String tournamentId;
   final String selectedCategory;
   final String dontShowMatch;
+  final bool scrollable;
   @override
   Widget build(BuildContext context) {
     final tournamentsData = Provider.of<Tournaments>(context);
@@ -59,7 +61,7 @@ class MatchesList extends StatelessWidget {
               match.tournament == tournamentId &&
               match.category == selectedCategory);
         // Dont show match
-        if(dontShowMatch != null)
+        if (dontShowMatch != null)
           matchesList.removeWhere((match) => match.id == dontShowMatch);
 
         return matchesList.isEmpty
@@ -78,6 +80,7 @@ class MatchesList extends StatelessWidget {
             : Container(
                 height: matchesList.length * 140.0,
                 child: ListView.builder(
+                  physics: scrollable ? null : NeverScrollableScrollPhysics(),
                   padding: const EdgeInsets.all(0),
                   itemBuilder: (ctx, index) {
                     final match = matchesList[index];

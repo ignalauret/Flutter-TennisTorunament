@@ -66,11 +66,51 @@ class _TournamentDrawScreenState extends State<TournamentDrawScreen> {
             title: "Cuadro de ${tournament.name}",
           ),
           CategoryButtons(selectCategory, selectedCategory),
+          SizedBox(
+            height: 10,
+          ),
           SelectionButtons([
             "Jugadores",
             "Cuadro",
             "Partidos",
           ], selectDisplay, selectedDisplay),
+          SizedBox(
+            height: 10,
+          ),
+          if (selectedDisplay == "Jugadores")
+            Container(
+              height: 20,
+              padding: const EdgeInsets.only(right: 23, left: 48),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Nombre",
+                      style: SMALL_TITLE_STYLE,
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      "Jugados",
+                      style: SMALL_TITLE_STYLE,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.15,
+                    child: Text(
+                      "Puntos",
+                      style: SMALL_TITLE_STYLE,
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                ],
+              ),
+            ),
           Expanded(
             child: _buildDisplay(tournament),
           ),

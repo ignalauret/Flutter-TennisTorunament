@@ -353,6 +353,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                   Container(
                     child: MatchesList(
                       playerId: player.id,
+                      scrollable: false,
                     ),
                   ),
                 ],
