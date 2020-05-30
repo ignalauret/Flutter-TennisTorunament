@@ -21,7 +21,7 @@ class TournamentsListItem extends StatelessWidget {
           child: Text(
             value,
             style: TextStyle(
-              color: Colors.white,
+              color: textColor,
               fontSize: 15,
             ),
           ),
@@ -30,8 +30,11 @@ class TournamentsListItem extends StatelessWidget {
     );
   }
 
-  TournamentsListItem(this.tournament);
+  TournamentsListItem(this.tournament,
+      {this.color = Colors.black45, this.textColor = Colors.white});
   final Tournament tournament;
+  final Color color;
+  final Color textColor;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -44,11 +47,7 @@ class TournamentsListItem extends StatelessWidget {
         width: 220,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(BORDER_RADIUS),
-          color: Colors.black45,
-        ),
-        margin: EdgeInsets.symmetric(
-          horizontal: size.width * 0.025,
-          vertical: size.height * 0.025,
+          color: color,
         ),
         padding: const EdgeInsets.all(10),
         child: Row(
@@ -69,7 +68,7 @@ class TournamentsListItem extends StatelessWidget {
                     child: Text(
                       tournament.name,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: textColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 17,
                       ),

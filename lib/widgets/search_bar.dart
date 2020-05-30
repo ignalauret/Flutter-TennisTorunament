@@ -28,7 +28,7 @@ class _SearchBarState extends State<SearchBar> {
       height: 50,
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 15),
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
       decoration: BoxDecoration(
         color: Colors.black45,
         borderRadius: BorderRadius.circular(BORDER_RADIUS),

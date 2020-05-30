@@ -1,6 +1,14 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournament/models/player.dart';
+import 'package:tennistournament/models/tournament.dart';
+import 'package:tennistournament/providers/tournaments.dart';
+import 'package:tennistournament/screens/player_profile_screen.dart';
+import 'package:tennistournament/widgets/matches/matches_list.dart';
+import 'package:tennistournament/widgets/players/players_list.dart';
+import 'package:tennistournament/widgets/tournaments/tournaments_list_item.dart';
 import '../providers/players.dart';
 import 'package:tennistournament/utils/constants.dart';
 import 'package:tennistournament/widgets/search_bar.dart';
@@ -14,11 +22,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   bool expanded = false;
   AnimationController _controller;
-  String selectedFilter = "Jugadores";
+  String selectedFilter = "Partidos";
   String searchString = "";
+  String sort = "Más recientes";
 
   @override
   void initState() {
+    Provider.of<Tournaments>(context, listen: false).fetchTournaments();
     _controller = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 200),
@@ -38,6 +48,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     });
   }
 
+  void selectSort(String selection) {
+    setState(() {
+      sort = selection;
+    });
+  }
+
   void collapseContainer() {
     expanded = false;
     _controller.reverse();
@@ -51,33 +67,115 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void search(String search) {
     setState(() {
       searchString = search;
+      if (searchString.isEmpty) collapseContainer();
     });
   }
 
-  Widget _buildPlayerList(String search) {
-    return FutureBuilder(
+  Widget _buildPlayerList(String search, bool reversed) {
+    return FutureBuilder<List<Player>>(
       future: Provider.of<Players>(context, listen: false).fetchPlayers(),
       builder: (context, snapshot) {
         if (snapshot == null || snapshot.data == null)
           return Center(
             child: CircularProgressIndicator(),
           );
-        final List<Player> playerList = snapshot.data;
-        playerList.retainWhere((player) => player.name.contains(search));
-        return (ListView.builder(
-          itemBuilder: (context, index) => Card(
-            child: Text(playerList[index].name),
+        final List<Player> playerList =
+            reversed ? snapshot.data.reversed.toList() : snapshot.data;
+        if (search.isNotEmpty)
+          playerList.retainWhere((player) => player.name.contains(search));
+        return ListView.builder(
+          itemBuilder: (context, index) => InkWell(
+            onTap: () => Navigator.of(context).pushNamed(
+                PlayerProfileScreen.routeName,
+                arguments: playerList[index]),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  playerList[index].name,
+                  style: PLAYER_NAME_STYLE,
+                ),
+              ),
+            ),
           ),
           itemCount: playerList.length,
-        ));
+        );
       },
     );
   }
 
-  Widget _buildSearch(String search, String selectedFilter) {
+  Widget _buildTournamentsList(String search, bool reversed) {
+    return FutureBuilder<List<Tournament>>(
+      future: Provider.of<Tournaments>(context).fetchTournaments(),
+      builder: (context, snapshot) {
+        if (snapshot == null || snapshot.data == null) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        final List<Tournament> tournamentsList =
+            reversed ? snapshot.data.reversed.toList() : snapshot.data;
+        if (search.isNotEmpty)
+          tournamentsList
+              .retainWhere((tournament) => tournament.name.contains(search));
+        return ListView.builder(
+          itemBuilder: (context, index) => Container(
+            height: 100,
+            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(BORDER_RADIUS),
+            ),
+            child: Card(
+              elevation: 10,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(BORDER_RADIUS)),
+              child: TournamentsListItem(
+                tournamentsList[index],
+                color: Colors.white,
+                textColor: Colors.black,
+              ),
+            ),
+          ),
+          itemCount: tournamentsList.length,
+        );
+      },
+    );
+  }
+
+  Widget _buildSearch(String search, String selectedFilter, String sort) {
     switch (selectedFilter) {
       case "Jugadores":
-        return _buildPlayerList(search);
+        return _buildPlayerList(search, sort == "Más recientes");
+      case "Partidos":
+        return MatchesList(
+          search: search,
+          reversed: sort == "Más recientes",
+        );
+      case "Torneos":
+        return _buildTournamentsList(search, sort == "Más recientes");
+    }
+  }
+
+  Widget _buildDefault(String selectedFilter) {
+    switch (selectedFilter) {
+      case "Jugadores":
+        return _buildPlayerList("", true);
+      case "Partidos":
+        return MatchesList();
+      case "Torneos":
+        return _buildTournamentsList("", true);
+    }
+  }
+
+  String _buildDefaultTitle(String selectedFilter) {
+    switch (selectedFilter) {
+      case "Jugadores":
+        return "Nuevos jugadores";
+      case "Partidos":
+        return "Partidos recientes";
+      case "Torneos":
+        return "Torneos recientes";
     }
   }
 
@@ -97,32 +195,47 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           child: Column(
             children: <Widget>[
               Container(
-                height: 60,
+                height: 50,
                 width: double.infinity,
                 color: MAIN_COLOR,
                 child: Column(
                   children: <Widget>[
-                    SearchBar(expandContainer, collapseContainer, search, searchString),
+                    SearchBar(expandContainer, collapseContainer, search,
+                        searchString),
                   ],
                 ),
               ),
               SizeTransition(
                 sizeFactor: _controller,
                 child: AnimatedContainer(
-                  height: size.height * 0.25 + 50 - 20 - 60,
+                  height: size.height * 0.25 + 50 - 80 - 50,
                   width: double.infinity,
                   color: MAIN_COLOR,
                   duration: Duration(milliseconds: 300),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      SelectionButtons(["Jugadores", "Partidos", "Torneos"],
-                          selectFilter, selectedFilter),
+                      Container(
+                        width: double.infinity,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 10),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Ordenar por:",
+                          style: TITLE_STYLE,
+                        ),
+                      ),
+                      SelectionButtons(
+                        ["Más recientes", "Más antiguos"],
+                        selectSort,
+                        sort,
+                      ),
                     ],
                   ),
                 ),
               ),
               Container(
-                height: 20,
+                height: 80,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -131,14 +244,32 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ),
                   color: MAIN_COLOR,
                 ),
+                child: SelectionButtons(["Partidos", "Jugadores", "Torneos"],
+                    selectFilter, selectedFilter),
               )
             ],
           ),
         ),
         if (searchString.isNotEmpty)
           Expanded(
-            child: _buildSearch(searchString, selectedFilter),
+            child: _buildSearch(searchString, selectedFilter, sort),
           )
+        else
+          Expanded(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: 30,
+                  alignment: Alignment.center,
+                  child: Text(
+                    _buildDefaultTitle(selectedFilter),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Expanded(child: _buildDefault(selectedFilter)),
+              ],
+            ),
+          ),
       ],
     );
   }

@@ -10,7 +10,7 @@ class SelectionButtons extends StatelessWidget {
   Widget _buildCategoryButton(
       String text, bool selected, BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.30,
+      width: MediaQuery.of(context).size.width * (0.90 / labels.length),
       margin: const EdgeInsets.symmetric(vertical: 0),
       child: FlatButton(
         padding: const EdgeInsets.all(15),
@@ -38,11 +38,10 @@ class SelectionButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        _buildCategoryButton(labels[0], labels[0] == selected, context),
-        _buildCategoryButton(labels[1], labels[1] == selected, context),
-        _buildCategoryButton(labels[2], labels[2] == selected, context),
-      ],
+      children: labels
+          .map((label) =>
+              _buildCategoryButton(label, label == selected, context))
+          .toList(),
     );
   }
 }

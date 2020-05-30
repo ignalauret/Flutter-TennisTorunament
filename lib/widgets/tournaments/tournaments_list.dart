@@ -32,7 +32,10 @@ class TournamentsList extends StatelessWidget {
             : ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (ctx, index) =>
-                    TournamentsListItem(tournaments[index]),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: TournamentsListItem(tournaments[index]),
+                    ),
                 itemCount: tournaments.length,
               );
       },

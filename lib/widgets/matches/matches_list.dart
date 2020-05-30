@@ -17,7 +17,9 @@ class MatchesList extends StatelessWidget {
     this.tournamentId,
     this.selectedCategory,
     this.dontShowMatch,
+    this.search,
     this.scrollable = true,
+    this.reversed = false,
   });
 
   final DateTime date;
@@ -26,21 +28,24 @@ class MatchesList extends StatelessWidget {
   final String tournamentId;
   final String selectedCategory;
   final String dontShowMatch;
+  final String search;
   final bool scrollable;
+  final bool reversed;
   @override
   Widget build(BuildContext context) {
     final tournamentsData = Provider.of<Tournaments>(context);
     final matchesData = Provider.of<Matches>(context);
     final playerData = Provider.of<Players>(context);
     final rankingData = Provider.of<Ranking>(context);
-    return FutureBuilder(
+    return FutureBuilder<List<Match>>(
       future: matchesData.fetchMatches(),
       builder: (ctx, snapshot) {
         if (snapshot == null || snapshot.data == null)
           return Center(
             child: CircularProgressIndicator(),
           );
-        final List<Match> matchesList = snapshot.data;
+        final List<Match> matchesList =
+            reversed ? snapshot.data.reversed.toList() : snapshot.data;
         // Remove bye matches.
         matchesList.removeWhere(
             (match) => match.idPlayer1 == "-1" || match.idPlayer2 == "-1");
@@ -63,6 +68,12 @@ class MatchesList extends StatelessWidget {
         // Dont show match
         if (dontShowMatch != null)
           matchesList.removeWhere((match) => match.id == dontShowMatch);
+        // Keep the ones that match the search.
+        if (search != null) {
+          matchesList.retainWhere((match) =>
+              playerData.getPlayerName(match.idPlayer1).contains(search) ||
+              playerData.getPlayerName(match.idPlayer2).contains(search));
+        }
 
         return matchesList.isEmpty
             ? Container(
