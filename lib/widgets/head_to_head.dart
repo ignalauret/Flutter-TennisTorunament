@@ -8,9 +8,9 @@ import 'package:provider/provider.dart';
 import 'package:tennistournament/models/player.dart';
 import 'package:tennistournament/providers/matches.dart';
 import 'package:tennistournament/providers/tournaments.dart';
+import 'package:tennistournament/screens/player_profile_screen.dart';
 import 'package:tennistournament/utils/constants.dart';
 import 'package:tennistournament/widgets/h2h/head_to_head_stat.dart';
-import 'package:tennistournament/widgets/matches/matches_list.dart';
 
 class HeadToHead extends StatelessWidget {
   HeadToHead(this.player1, this.player2);
@@ -22,15 +22,19 @@ class HeadToHead extends StatelessWidget {
     String imageUrl2,
     int wins1,
     int wins2,
+    BuildContext context,
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Container(
           height: 100,
-          child: Image.asset(
-            imageUrl1,
-            fit: BoxFit.cover,
+          child: InkWell(
+            onTap: () => Navigator.of(context).pushNamed(PlayerProfileScreen.routeName, arguments: player1),
+            child: Image.asset(
+              imageUrl1,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         Expanded(
@@ -72,9 +76,12 @@ class HeadToHead extends StatelessWidget {
         ),
         Container(
           height: 100,
-          child: Image.asset(
-            imageUrl1,
-            fit: BoxFit.cover,
+          child: InkWell(
+            onTap: () => Navigator.of(context).pushNamed(PlayerProfileScreen.routeName, arguments: player2),
+            child: Image.asset(
+              imageUrl2,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ],
@@ -97,6 +104,7 @@ class HeadToHead extends StatelessWidget {
             imageUrl2: player2.profileUrl,
             wins1: versus[0],
             wins2: versus[1],
+            context: context,
           ),
           Container(
             margin: const EdgeInsets.only(top: 5, bottom: 2),

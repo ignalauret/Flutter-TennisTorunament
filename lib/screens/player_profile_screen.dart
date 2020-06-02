@@ -31,7 +31,8 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
     return Container(
       height: size.height * 0.06,
       width: size.width * 0.3,
-      padding: EdgeInsets.symmetric(vertical: size.height * 0.005, horizontal: 10),
+      padding:
+          EdgeInsets.symmetric(vertical: size.height * 0.005, horizontal: 10),
       margin: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: 5),
       alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -123,30 +124,24 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
     final size = MediaQuery.of(context).size;
     final rankingData = Provider.of<Ranking>(context);
     final matchesData = Provider.of<Matches>(context);
-    //final playerStats = matchesData.getPlayerStats(player.id);
     final tournamentsData = Provider.of<Tournaments>(context);
     return Scaffold(
       backgroundColor: MAIN_COLOR,
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Stack(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            expandedHeight: size.height * 0.57 - AppBar().preferredSize.height,
+            pinned: true,
+            automaticallyImplyLeading: false,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  height: size.height * 0.57,
-                  width: size.width,
-                  child: Image.asset(
-                    player.imageUrl,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Positioned(
-                  top: size.height * 0.03,
-                  left: size.width * 0.03,
+                  height: 40,
                   width: 80,
                   child: FlatButton(
                     padding: const EdgeInsets.only(
-                        top: 10, bottom: 10, right: 10, left: 2),
+                        top: 10, bottom: 10, right: 10, left: 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -170,197 +165,218 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                     },
                   ),
                 ),
-                Positioned(
-                  left: 0,
-                  top: size.height * 0.1,
-                  child: Container(
-                    height: size.height * 0.4,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        _buildStat("Nombre", player.name, size),
-                        _buildStat("Edad", player.age.toString(), size),
-                        _buildStat("Mano hábil", player.hand, size),
-                        _buildStat("Reves", player.backhandType, size),
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: size.height * 0.5,
-                  child: Container(
-                    height: size.height * 0.08,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      color: MAIN_COLOR,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(BORDER_RADIUS),
-                        topRight: Radius.circular(BORDER_RADIUS),
-                      ),
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          width: size.width * 0.5,
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Image.asset(
-                                "assets/img/argentina_flag.png",
-                                height: 20,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(
-                                  player.nationality,
-                                  style: infoTextStyle,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: size.width * 0.5,
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(
-                                Icons.fitness_center,
-                                size: 25,
-                                color: ACCENT_COLOR,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(
-                                  player.club,
-                                  style: infoTextStyle,
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
               ],
             ),
-            Container(
-              child: Column(
+            flexibleSpace: FlexibleSpaceBar(
+              collapseMode: CollapseMode.pin,
+              background: Stack(
                 children: <Widget>[
-                  CategoryButtons(selectCategory, selectedCategory),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      _buildBigStat(
-                          "Ranking Actual",
-                          rankingData.getRankingOf(player.id, selectedCategory),
-                          player.points[selectedCategory].toString() +
-                              " puntos",
-                          size),
-                      _buildBigStat(
-                          "Mejor Ranking",
-                          player.bestRankings[selectedCategory] == 1000
-                              ? "-"
-                              : player.bestRankings[selectedCategory]
-                                  .toString(),
-                          player.bestRankingsDates[selectedCategory],
-                          size),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      _buildBigStat(
-                          "Titulos",
-                          tournamentsData
-                              .getPlayerTitles(player.id, selectedCategory)
-                              .toString(),
-                          "Jugados: ${tournamentsData.getPlayersPlayedTournaments(player.id, selectedCategory)}",
-                          size),
-                      _buildBigStat(
-                          "Victorias",
-                          matchesData
-                              .getPlayerWins(player.id, selectedCategory)
-                              .toString(),
-                          "% Victorias: ${getWinsRatio(
-                            matchesData.getPlayedMatches(
-                                player.id, selectedCategory),
-                            matchesData.getPlayerWins(
-                                player.id, selectedCategory),
-                          )}",
-                          size),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        child: Text(
-                          "Partidos recientes",
-                          style: TITLE_STYLE,
-                        ),
-                        margin: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.025),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.025),
-                        child: FlatButton(
-                          padding: const EdgeInsets.only(
-                            right: 2,
-                            top: 10,
-                            left: 10,
-                            bottom: 10,
-                          ),
-                          child: Row(
-                            children: <Widget>[
-                              FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(
-                                  "Ver Todos",
-                                  style: BUTTON_STYLE,
-                                ),
-                              ),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: ACCENT_COLOR,
-                                size: 20,
-                              ),
-                            ],
-                          ),
-                          color: Colors.black45,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(BORDER_RADIUS),
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pushNamed(
-                                PlayerMatchesScreen.routeName,
-                                arguments: player.id);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
                   Container(
-                    child: MatchesList(
-                      playerId: player.id,
-                      scrollable: false,
+                    height: size.height * 0.57,
+                    width: size.width,
+                    child: Image.asset(
+                      player.imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Positioned(
+                    left: 0,
+                    top: size.height * 0.1,
+                    child: Container(
+                      height: size.height * 0.4,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          _buildStat("Nombre", player.name, size),
+                          _buildStat("Edad", player.age.toString(), size),
+                          _buildStat("Mano hábil", player.hand, size),
+                          _buildStat("Reves", player.backhandType, size),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: size.height * 0.5,
+                    child: Container(
+                      height: size.height * 0.08,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        color: MAIN_COLOR,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(BORDER_RADIUS),
+                          topRight: Radius.circular(BORDER_RADIUS),
+                        ),
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            width: size.width * 0.5,
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Image.asset(
+                                  "assets/img/argentina_flag.png",
+                                  height: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Text(
+                                    player.nationality,
+                                    style: infoTextStyle,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: size.width * 0.5,
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.fitness_center,
+                                  size: 25,
+                                  color: ACCENT_COLOR,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Text(
+                                    player.club,
+                                    style: infoTextStyle,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Container(
+                  child: Column(children: <Widget>[
+                    CategoryButtons(selectCategory, selectedCategory),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        _buildBigStat(
+                            "Ranking Actual",
+                            rankingData.getRankingOf(
+                                player.id, selectedCategory),
+                            player.points[selectedCategory].toString() +
+                                " puntos",
+                            size),
+                        _buildBigStat(
+                            "Mejor Ranking",
+                            player.bestRankings[selectedCategory] == 1000
+                                ? "-"
+                                : player.bestRankings[selectedCategory]
+                                    .toString(),
+                            player.bestRankingsDates[selectedCategory],
+                            size),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        _buildBigStat(
+                            "Titulos",
+                            tournamentsData
+                                .getPlayerTitles(player.id, selectedCategory)
+                                .toString(),
+                            "Jugados: ${tournamentsData.getPlayersPlayedTournaments(player.id, selectedCategory)}",
+                            size),
+                        _buildBigStat(
+                            "Victorias",
+                            matchesData
+                                .getPlayerWins(player.id, selectedCategory)
+                                .toString(),
+                            "% Victorias: ${getWinsRatio(
+                              matchesData.getPlayedMatches(
+                                  player.id, selectedCategory),
+                              matchesData.getPlayerWins(
+                                  player.id, selectedCategory),
+                            )}",
+                            size),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          child: Text(
+                            "Partidos recientes",
+                            style: TITLE_STYLE,
+                          ),
+                          margin: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.025),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.025),
+                          child: FlatButton(
+                            padding: const EdgeInsets.only(
+                              right: 2,
+                              top: 10,
+                              left: 10,
+                              bottom: 10,
+                            ),
+                            child: Row(
+                              children: <Widget>[
+                                FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Text(
+                                    "Ver Todos",
+                                    style: BUTTON_STYLE,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: ACCENT_COLOR,
+                                  size: 20,
+                                ),
+                              ],
+                            ),
+                            color: Colors.black45,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(BORDER_RADIUS),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                  PlayerMatchesScreen.routeName,
+                                  arguments: player.id);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      child: MatchesList(
+                        playerId: player.id,
+                        scrollable: false,
+                      ),
+                    ),
+                  ]),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

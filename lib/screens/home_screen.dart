@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournament/models/player.dart';
@@ -7,7 +6,6 @@ import 'package:tennistournament/models/tournament.dart';
 import 'package:tennistournament/providers/tournaments.dart';
 import 'package:tennistournament/screens/player_profile_screen.dart';
 import 'package:tennistournament/widgets/matches/matches_list.dart';
-import 'package:tennistournament/widgets/players/players_list.dart';
 import 'package:tennistournament/widgets/tournaments/tournaments_list_item.dart';
 import '../providers/players.dart';
 import 'package:tennistournament/utils/constants.dart';
