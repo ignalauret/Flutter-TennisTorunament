@@ -130,7 +130,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            expandedHeight: size.height * 0.57 - AppBar().preferredSize.height,
+            expandedHeight: size.height * 0.57 - AppBar().preferredSize.height + size.height * 0.05,
             pinned: true,
             automaticallyImplyLeading: false,
             title: Row(

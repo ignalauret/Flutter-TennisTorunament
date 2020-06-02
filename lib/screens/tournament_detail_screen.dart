@@ -131,28 +131,24 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
             .compareTo(ranking.getRankingOfInt(id2, selectedCategory)),
       ),
     );
+
     return Scaffold(
       backgroundColor: MAIN_COLOR,
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Stack(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            expandedHeight: size.height * 0.57 - AppBar().preferredSize.height,
+            pinned: true,
+            automaticallyImplyLeading: false,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  height: size.height * 0.30,
-                  width: size.width,
-                  margin: const EdgeInsets.only(top: 30, bottom: 10),
-                  child: Image.network(
-                    tournament.logoUrl,
-                  ),
-                ),
-                Positioned(
-                  top: size.height * 0.03,
-                  left: size.width * 0.03,
+                  height: 40,
                   width: 80,
                   child: FlatButton(
                     padding: const EdgeInsets.only(
-                        top: 10, bottom: 10, right: 10, left: 2),
+                        top: 10, bottom: 10, right: 10, left: 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -178,128 +174,145 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
                 ),
               ],
             ),
-            Container(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    width: double.infinity,
-                    margin: const EdgeInsets.only(bottom: 5, left: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            tournament.name,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 35,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  _buildFullWidthStat("Ubicación", tournament.club, size),
-                  _buildFullWidthStat(
-                      "Fecha",
-                      "Del " +
-                          DateFormat("d/M").format(tournament.start) +
-                          " al " +
-                          DateFormat("d/M").format(tournament.end),
-                      size),
-                  CategoryButtons(selectCategory, selectedCategory),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            flexibleSpace: FlexibleSpaceBar(
+              collapseMode: CollapseMode.pin,
+              background: Container(
+                height: size.height * 0.30,
+                width: size.width,
+                margin: const EdgeInsets.only(top: 30, bottom: 10),
+                child: Image.network(
+                  tournament.logoUrl,
+                ),
+              ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Container(
+                  child: Column(
                     children: <Widget>[
-                      tournament.getActualRound(selectedCategory) == "Terminado"
-                          ? _buildBigStat(
+                      Container(
+                        width: double.infinity,
+                        margin: const EdgeInsets.only(bottom: 5, left: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                tournament.name,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      _buildFullWidthStat("Ubicación", tournament.club, size),
+                      _buildFullWidthStat(
+                          "Fecha",
+                          "Del " +
+                              DateFormat("d/M").format(tournament.start) +
+                              " al " +
+                              DateFormat("d/M").format(tournament.end),
+                          size),
+                      CategoryButtons(selectCategory, selectedCategory),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          tournament.getActualRound(selectedCategory) == "Terminado"
+                              ? _buildBigStat(
                               "Campeón",
                               playerData.getPlayerName(
                                   tournament.getWinnerId(selectedCategory)),
                               "Inscriptos: ${tournament.getInitialPlayersOfCat(selectedCategory).toString()}",
                               size)
-                          : _buildBigStat(
+                              : _buildBigStat(
                               "Jugadores Restantes",
                               tournament
                                   .getRemainingPlayers(selectedCategory)
                                   .toString(),
                               "Inscriptos: ${tournament.getInitialPlayersOfCat(selectedCategory).toString()}",
                               size),
-                      _buildBigStat(
-                          "Ronda actual",
-                          tournament.getActualRound(selectedCategory),
-                          "Inicio: ${tournament.getStartingRound(selectedCategory)}",
-                          size),
+                          _buildBigStat(
+                              "Ronda actual",
+                              tournament.getActualRound(selectedCategory),
+                              "Inicio: ${tournament.getStartingRound(selectedCategory)}",
+                              size),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            child: Text(
+                              "Preclasificados",
+                              style: TITLE_STYLE,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.025),
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.025),
+                            child: FlatButton(
+                              padding: const EdgeInsets.only(
+                                right: 2,
+                                top: 10,
+                                left: 10,
+                                bottom: 10,
+                              ),
+                              child: Row(
+                                children: <Widget>[
+                                  FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      "Ver Cuadro",
+                                      style: BUTTON_STYLE,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward,
+                                    color: ACCENT_COLOR,
+                                    size: 20,
+                                  ),
+                                ],
+                              ),
+                              color: Colors.black45,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(BORDER_RADIUS),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pushNamed(
+                                    TournamentDrawScreen.routeName,
+                                    arguments: {
+                                      "tournament": tournament,
+                                      "selectedCategory": selectedCategory
+                                    });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      RankingPodium([
+                        playerData.getPlayerById(
+                            tournamentPlayerList[selectedCategory][0]),
+                        playerData.getPlayerById(
+                            tournamentPlayerList[selectedCategory][1]),
+                        playerData.getPlayerById(
+                            tournamentPlayerList[selectedCategory][2]),
+                      ], selectedCategory),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        child: Text(
-                          "Preclasificados",
-                          style: TITLE_STYLE,
-                        ),
-                        margin: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.025),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.025),
-                        child: FlatButton(
-                          padding: const EdgeInsets.only(
-                            right: 2,
-                            top: 10,
-                            left: 10,
-                            bottom: 10,
-                          ),
-                          child: Row(
-                            children: <Widget>[
-                              FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(
-                                  "Ver Cuadro",
-                                  style: BUTTON_STYLE,
-                                ),
-                              ),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: ACCENT_COLOR,
-                                size: 20,
-                              ),
-                            ],
-                          ),
-                          color: Colors.black45,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(BORDER_RADIUS),
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pushNamed(
-                                TournamentDrawScreen.routeName,
-                                arguments: {
-                                  "tournament": tournament,
-                                  "selectedCategory": selectedCategory
-                                });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  RankingPodium([
-                    playerData.getPlayerById(
-                        tournamentPlayerList[selectedCategory][0]),
-                    playerData.getPlayerById(
-                        tournamentPlayerList[selectedCategory][1]),
-                    playerData.getPlayerById(
-                        tournamentPlayerList[selectedCategory][2]),
-                  ], selectedCategory),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
