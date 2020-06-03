@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: MAIN_COLOR,
+          fontFamily: "PTSans",
         ),
         home: TabsControllerScreen(),
         routes: {

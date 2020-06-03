@@ -78,6 +78,13 @@ flutter:
     - family:  CustomIcons
       fonts:
         - asset: assets/fonts/CustomIcons.ttf
+    - family: PTSans
+      fonts:
+        - asset: assets/fonts/PTSans-Regular.ttf
+        - asset: assets/fonts/PTSans-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/PTSans-Italic.ttf
+          style: italic
   # fonts:
   #   - family: Schyler
   #     fonts:

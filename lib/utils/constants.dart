@@ -22,9 +22,9 @@ const TextStyle BUTTON_STYLE = TextStyle(
   fontSize: 14,
 );
 
-const TextStyle MATCH_INFO_STYLE = TextStyle(
+final TextStyle MATCH_INFO_STYLE = TextStyle(
   fontSize: 13,
-  color: Colors.grey,
+  color: Colors.grey[600],
 );
 
 final Color BACKGROUND_COLOR = Color.fromRGBO(238, 238, 238, 1);
