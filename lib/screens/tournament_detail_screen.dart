@@ -13,6 +13,7 @@ import 'package:tennistournament/widgets/category_buttons.dart';
 import 'package:tennistournament/widgets/players/players_list.dart';
 import 'package:tennistournament/widgets/ranking/ranking_badge.dart';
 import 'package:tennistournament/widgets/ranking/ranking_podium.dart';
+import 'package:tennistournament/widgets/tennis_back_button.dart';
 
 class TournamentDetailScreen extends StatefulWidget {
   static const routeName = "/tournament";
@@ -143,35 +144,7 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Container(
-                  height: 40,
-                  width: 80,
-                  child: FlatButton(
-                    padding: const EdgeInsets.only(
-                        top: 10, bottom: 10, right: 10, left: 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.arrow_back,
-                          color: ACCENT_COLOR,
-                          size: 20,
-                        ),
-                        Text(
-                          "Volver",
-                          style: BUTTON_STYLE,
-                        ),
-                      ],
-                    ),
-                    color: Colors.black45,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(BORDER_RADIUS),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ),
+                TennisBackButton(),
               ],
             ),
             flexibleSpace: FlexibleSpaceBar(

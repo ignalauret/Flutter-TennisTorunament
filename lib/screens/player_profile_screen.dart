@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:tennistournament/custom_icons_icons.dart';
 import 'package:tennistournament/models/player.dart';
 import 'package:tennistournament/providers/matches.dart';
 import 'package:tennistournament/providers/ranking.dart';
@@ -8,6 +9,7 @@ import 'package:tennistournament/providers/tournaments.dart';
 import 'package:tennistournament/screens/player_matches_screen.dart';
 import 'package:tennistournament/utils/constants.dart';
 import 'package:tennistournament/utils/stats_methods.dart';
+import 'package:tennistournament/widgets/tennis_back_button.dart';
 import 'package:tennistournament/widgets/category_buttons.dart';
 import 'package:tennistournament/widgets/matches/matches_list.dart';
 
@@ -136,35 +138,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Container(
-                  height: 40,
-                  width: 80,
-                  child: FlatButton(
-                    padding: const EdgeInsets.only(
-                        top: 10, bottom: 10, right: 10, left: 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.arrow_back,
-                          color: ACCENT_COLOR,
-                          size: 20,
-                        ),
-                        Text(
-                          "Volver",
-                          style: BUTTON_STYLE,
-                        ),
-                      ],
-                    ),
-                    color: Colors.black45,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(BORDER_RADIUS),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ),
+                TennisBackButton(),
               ],
             ),
             flexibleSpace: FlexibleSpaceBar(
@@ -239,8 +213,8 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Icon(
-                                  Icons.fitness_center,
-                                  size: 25,
+                                  CustomIcons.tennis_championship,
+                                  size: 35,
                                   color: ACCENT_COLOR,
                                 ),
                                 SizedBox(

@@ -1,9 +1,11 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:tennistournament/screens/home_screen.dart';
+import 'package:tennistournament/screens/data_base_screen.dart';
 import 'package:tennistournament/screens/matches_screen.dart';
 import 'package:tennistournament/screens/ranking_screen.dart';
 import 'package:tennistournament/utils/constants.dart';
+
+import '../custom_icons_icons.dart';
 
 class TabsControllerScreen extends StatefulWidget {
   @override
@@ -13,18 +15,13 @@ class TabsControllerScreen extends StatefulWidget {
 class _TabsControllerScreenState extends State<TabsControllerScreen> {
   int _tabIndex = 0;
   final _tabs = [
-    HomeScreen(),
+    DatabaseScreen(),
     MatchesScreen(),
     RankingScreen(),
-    HomeScreen(),
+    DatabaseScreen(),
   ];
 
-  final _titles = [
-    "Home",
-    "Partidos",
-    "Ranking",
-    "Home"
-  ];
+  final _titles = ["Home", "Calendario", "Ranking", "Base de Datos"];
   Widget _buildAppBar() {
     return AppBar(
       backgroundColor: MAIN_COLOR,
@@ -49,17 +46,17 @@ class _TabsControllerScreenState extends State<TabsControllerScreen> {
             color: MAIN_COLOR,
           ),
           Icon(
-            Icons.list,
+            CustomIcons.tennis_calendar,
             size: 30,
             color: MAIN_COLOR,
           ),
           Icon(
-            Icons.sort,
+            CustomIcons.podium,
             size: 30,
             color: MAIN_COLOR,
           ),
           Icon(
-            Icons.compare_arrows,
+            CustomIcons.tennis_education,
             size: 30,
             color: MAIN_COLOR,
           ),

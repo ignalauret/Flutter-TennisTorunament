@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tennistournament/custom_icons_icons.dart';
 import 'package:tennistournament/models/tournament.dart';
 import 'package:tennistournament/screens/tournament_detail_screen.dart';
 import 'package:tennistournament/utils/constants.dart';
@@ -11,7 +12,7 @@ class TournamentsListItem extends StatelessWidget {
         Icon(
           icon,
           color: ACCENT_COLOR,
-          size: 15,
+          size: 25,
         ),
         SizedBox(
           width: 5,
@@ -37,7 +38,6 @@ class TournamentsListItem extends StatelessWidget {
   final Color textColor;
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
         Navigator.of(context)
@@ -74,8 +74,9 @@ class TournamentsListItem extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(height: 4,),
                   _buildInfo(
-                    Icons.home,
+                    CustomIcons.tennis_championship,
                     tournament.club,
                   ),
                   _buildInfo(

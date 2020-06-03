@@ -7,6 +7,7 @@ import 'package:tennistournament/utils/constants.dart';
 import 'package:tennistournament/widgets/head_to_head.dart';
 import 'package:tennistournament/widgets/matches/matches_list.dart';
 import 'package:tennistournament/widgets/matches/matches_list_item.dart';
+import 'package:tennistournament/widgets/tennis_back_button.dart';
 import '../providers/players.dart';
 
 class MatchDetailScreen extends StatelessWidget {
@@ -30,35 +31,7 @@ class MatchDetailScreen extends StatelessWidget {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Container(
-                  height: 40,
-                  width: 80,
-                  child: FlatButton(
-                    padding: const EdgeInsets.only(
-                        top: 10, bottom: 10, right: 10, left: 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.arrow_back,
-                          color: ACCENT_COLOR,
-                          size: 20,
-                        ),
-                        Text(
-                          "Volver",
-                          style: BUTTON_STYLE,
-                        ),
-                      ],
-                    ),
-                    color: Colors.black45,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(BORDER_RADIUS),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ),
+                TennisBackButton(),
               ],
             ),
             flexibleSpace: FlexibleSpaceBar(

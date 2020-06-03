@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tennistournament/utils/constants.dart';
+import 'package:tennistournament/widgets/tennis_back_button.dart';
 
 class BackButtonHeader extends StatelessWidget {
   BackButtonHeader({this.title = ""});
@@ -15,37 +16,13 @@ class BackButtonHeader extends StatelessWidget {
           margin: const EdgeInsets.only(top: 30, bottom: 10),
         ),
         Positioned(
-          top: size.height * 0.03,
+          top: size.height * 0.04,
           left: size.width * 0.03,
           width: 80,
-          child: FlatButton(
-            padding:
-                const EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 2),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(
-                  Icons.arrow_back,
-                  color: ACCENT_COLOR,
-                  size: 20,
-                ),
-                Text(
-                  "Volver",
-                  style: BUTTON_STYLE,
-                ),
-              ],
-            ),
-            color: Colors.black45,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(BORDER_RADIUS),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
+          child: TennisBackButton(),
         ),
         Positioned(
-          top: size.height * 0.03 + 16,
+          top: size.height * 0.04 + 10,
           right: size.width * 0.03,
           width: size.width - 120,
           height: 20,
