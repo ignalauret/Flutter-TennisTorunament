@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:tennistournament/custom_icons_icons.dart';
 import 'package:tennistournament/models/tournament.dart';
 import 'package:tennistournament/screens/tournament_detail_screen.dart';
@@ -44,7 +45,7 @@ class TournamentsListItem extends StatelessWidget {
             .pushNamed(TournamentDetailScreen.routeName, arguments: tournament);
       },
       child: Container(
-        width: 220,
+        width: 300,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(BORDER_RADIUS),
           color: color,
@@ -59,9 +60,10 @@ class TournamentsListItem extends StatelessWidget {
               child: Image.network(tournament.logoUrl),
             ),
             Container(
-              width: 130,
+              width: 210,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   FittedBox(
                     fit: BoxFit.scaleDown,
@@ -74,11 +76,18 @@ class TournamentsListItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 4,),
+                  SizedBox(
+                    height: 4,
+                  ),
                   _buildInfo(
                     CustomIcons.tennis_championship,
                     tournament.club,
                   ),
+                  _buildInfo(
+                      CustomIcons.tennis_calendar,
+                      DateFormat.MEd().format(tournament.start) +
+                          " al " +
+                          DateFormat.MEd().format(tournament.end)),
                   _buildInfo(
                     Icons.people,
                     tournament.getInitialPlayers().toString() + " inscriptos",
