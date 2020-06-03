@@ -1,19 +1,16 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:tennistournament/models/player.dart';
-import 'package:tennistournament/models/tournament.dart';
-import 'package:tennistournament/providers/players.dart';
-import 'package:tennistournament/providers/ranking.dart';
-import 'package:tennistournament/screens/tournament_draw_screen.dart';
-import 'package:tennistournament/utils/constants.dart';
-import 'package:tennistournament/widgets/category_buttons.dart';
-import 'package:tennistournament/widgets/players/players_list.dart';
-import 'package:tennistournament/widgets/ranking/ranking_badge.dart';
-import 'package:tennistournament/widgets/ranking/ranking_podium.dart';
-import 'package:tennistournament/widgets/tennis_back_button.dart';
+
+import '../models/tournament.dart';
+import '../providers/players.dart';
+import '../providers/ranking.dart';
+import '../screens/tournament_draw_screen.dart';
+import '../utils/constants.dart';
+import '../utils/text_styles.dart';
+import '../widgets/category_buttons.dart';
+import '../widgets/ranking/ranking_podium.dart';
+import '../widgets/tennis_back_button.dart';
 
 class TournamentDetailScreen extends StatefulWidget {
   static const routeName = "/tournament";
@@ -27,7 +24,6 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
 
   Widget _buildBigStat(String label, String value, String date, Size size) {
     return Container(
-      height: 70,
       width: size.width * 0.45,
       padding: EdgeInsets.all(size.height * 0.005),
       margin: EdgeInsets.symmetric(
@@ -47,27 +43,21 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
             child: Text(
               label,
               style:
-                  TextStyle(color: ACCENT_COLOR, fontWeight: FontWeight.bold),
+                  kPlayerStatBigTitle
             ),
           ),
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
               value,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: kPlayerStatValueStyle
             ),
           ),
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
               date,
-              style: TextStyle(
-                color: Colors.grey,
-              ),
+              style: kPlayerStatSubValueStyle
             ),
           ),
         ],
@@ -93,17 +83,13 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
               width: size.width * 0.20,
               child: Text(
                 label,
-                style: TextStyle(
-                  color: ACCENT_COLOR,
-                ),
+                style: kInfoCardLabelStyle
               ),
             ),
             Expanded(
               child: Text(
                 value,
-                style: TextStyle(
-                  color: Colors.white,
-                ),
+                style: kInfoCardValueStyle
               ),
             ),
           ],
@@ -175,11 +161,7 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
                               fit: BoxFit.scaleDown,
                               child: Text(
                                 tournament.name,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 35,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: kBigTitleStyle,
                               ),
                             ),
                           ],
@@ -224,7 +206,7 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
                           Container(
                             child: Text(
                               "Preclasificados",
-                              style: TITLE_STYLE,
+                              style: kMainTitleStyle,
                             ),
                             margin: EdgeInsets.symmetric(
                                 horizontal: size.width * 0.025),
@@ -245,7 +227,7 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
                                     fit: BoxFit.scaleDown,
                                     child: Text(
                                       "Ver Cuadro",
-                                      style: BUTTON_STYLE,
+                                      style: kButtonTextStyle,
                                     ),
                                   ),
                                   Icon(

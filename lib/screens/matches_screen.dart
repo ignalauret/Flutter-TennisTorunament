@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:tennistournament/utils/constants.dart';
+import 'package:tennistournament/utils/text_styles.dart';
 import 'package:tennistournament/widgets/matches/matches_list.dart';
 import 'package:tennistournament/widgets/tournaments/tournaments_list.dart';
 
@@ -39,6 +40,7 @@ class _MatchesScreenState extends State<MatchesScreen> {
               day.day.toString(),
               style: TextStyle(
                 color: _selectedIndex == index ? ACCENT_COLOR : Colors.white,
+                fontSize: 17,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -46,6 +48,7 @@ class _MatchesScreenState extends State<MatchesScreen> {
               DateFormat.MMM().format(day),
               style: TextStyle(
                 color: _selectedIndex == index ? ACCENT_COLOR : Colors.white,
+                fontSize: 17,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -95,7 +98,7 @@ class _MatchesScreenState extends State<MatchesScreen> {
                   fit: BoxFit.scaleDown,
                   child: Text(
                     "Torneos Activos",
-                    style: TITLE_STYLE,
+                    style: kMainTitleStyle,
                   ),
                 ),
               ),

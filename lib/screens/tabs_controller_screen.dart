@@ -4,6 +4,7 @@ import 'package:tennistournament/screens/data_base_screen.dart';
 import 'package:tennistournament/screens/matches_screen.dart';
 import 'package:tennistournament/screens/ranking_screen.dart';
 import 'package:tennistournament/utils/constants.dart';
+import 'package:tennistournament/utils/text_styles.dart';
 
 import '../custom_icons_icons.dart';
 
@@ -26,7 +27,10 @@ class _TabsControllerScreenState extends State<TabsControllerScreen> {
     return AppBar(
       backgroundColor: MAIN_COLOR,
       elevation: 0,
-      title: Text(_titles[_tabIndex]),
+      title: Text(
+        _titles[_tabIndex],
+        style: kBigTitleStyle,
+      ),
     );
   }
 

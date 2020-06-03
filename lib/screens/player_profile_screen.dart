@@ -9,6 +9,7 @@ import 'package:tennistournament/providers/tournaments.dart';
 import 'package:tennistournament/screens/player_matches_screen.dart';
 import 'package:tennistournament/utils/constants.dart';
 import 'package:tennistournament/utils/stats_methods.dart';
+import 'package:tennistournament/utils/text_styles.dart';
 import 'package:tennistournament/widgets/tennis_back_button.dart';
 import 'package:tennistournament/widgets/category_buttons.dart';
 import 'package:tennistournament/widgets/matches/matches_list.dart';
@@ -23,15 +24,9 @@ class PlayerProfileScreen extends StatefulWidget {
 class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
   String selectedCategory = "A";
 
-  final TextStyle infoTextStyle = TextStyle(
-    color: Colors.white,
-    fontSize: 15,
-    fontWeight: FontWeight.bold,
-  );
-
   Widget _buildStat(String label, String value, Size size) {
     return Container(
-      height: size.height * 0.06,
+      height: size.height * 0.07,
       width: size.width * 0.3,
       padding:
           EdgeInsets.symmetric(vertical: size.height * 0.005, horizontal: 10),
@@ -44,21 +39,15 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Text(
-              label,
-              style: TextStyle(color: ACCENT_COLOR, fontSize: 12),
-            ),
+          Text(
+            label,
+            style: kPlayerStatSmallTitle,
           ),
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
               value,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold),
+              style: kPlayerStatValueStyle
             ),
           ),
         ],
@@ -68,7 +57,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
 
   Widget _buildBigStat(String label, String value, String date, Size size) {
     return Container(
-      height: 70,
+      height: 80,
       width: size.width * 0.45,
       padding: EdgeInsets.all(size.height * 0.005),
       margin: EdgeInsets.symmetric(
@@ -87,26 +76,20 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
             child: Text(
               label,
               style:
-                  TextStyle(color: ACCENT_COLOR, fontWeight: FontWeight.bold),
+                  kPlayerStatBigTitle
             ),
           ),
           FittedBox(
             child: Text(
               value,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: kPlayerStatValueStyle
             ),
           ),
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
               date,
-              style: TextStyle(
-                color: Colors.grey,
-              ),
+              style: kPlayerStatSubValueStyle
             ),
           ),
         ],
@@ -200,7 +183,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                                   fit: BoxFit.scaleDown,
                                   child: Text(
                                     player.nationality,
-                                    style: infoTextStyle,
+                                    style: kPlayerStatValueStyle,
                                   ),
                                 ),
                               ],
@@ -224,7 +207,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                                   fit: BoxFit.scaleDown,
                                   child: Text(
                                     player.club,
-                                    style: infoTextStyle,
+                                    style: kPlayerStatValueStyle,
                                   ),
                                 ),
                               ],
@@ -294,7 +277,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                         Container(
                           child: Text(
                             "Partidos recientes",
-                            style: TITLE_STYLE,
+                            style: kMainTitleStyle,
                           ),
                           margin: EdgeInsets.symmetric(
                               horizontal: size.width * 0.025),
@@ -315,7 +298,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                                   fit: BoxFit.scaleDown,
                                   child: Text(
                                     "Ver Todos",
-                                    style: BUTTON_STYLE,
+                                    style: kButtonTextStyle,
                                   ),
                                 ),
                                 Icon(

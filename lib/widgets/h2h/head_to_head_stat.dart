@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tennistournament/utils/constants.dart';
+
+import '../../utils/constants.dart';
+import '../../utils/text_styles.dart';
 
 class HeadToHeadStat extends StatelessWidget {
   HeadToHeadStat(this.label, this.value1, this.value2, this.withStatBar);
@@ -41,7 +43,6 @@ class HeadToHeadStat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final TextStyle valuesStyle = TextStyle(color: Colors.white, fontSize: 16);
     int number1;
     int number2;
     if (withStatBar) {
@@ -64,7 +65,7 @@ class HeadToHeadStat extends StatelessWidget {
                     fit: BoxFit.scaleDown,
                     child: Text(
                       value1.toString(),
-                      style: valuesStyle,
+                      style: kHeadToHeadValueStyle,
                     ),
                   ),
                 ),
@@ -73,7 +74,7 @@ class HeadToHeadStat extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
                   label,
-                  style: TextStyle(color: Colors.grey, fontSize: 14),
+                  style: kHeadToHeadTitleStyle,
                 ),
               ),
               Expanded(
@@ -84,7 +85,7 @@ class HeadToHeadStat extends StatelessWidget {
                     fit: BoxFit.scaleDown,
                     child: Text(
                       value2.toString(),
-                      style: valuesStyle,
+                      style: kHeadToHeadValueStyle,
                       textAlign: TextAlign.end,
                     ),
                   ),

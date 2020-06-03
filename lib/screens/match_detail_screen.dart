@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tennistournament/models/match.dart';
-import 'package:tennistournament/providers/ranking.dart';
-import 'package:tennistournament/providers/tournaments.dart';
-import 'package:tennistournament/utils/constants.dart';
-import 'package:tennistournament/widgets/head_to_head.dart';
-import 'package:tennistournament/widgets/matches/matches_list.dart';
-import 'package:tennistournament/widgets/matches/matches_list_item.dart';
-import 'package:tennistournament/widgets/tennis_back_button.dart';
+import '../models/match.dart';
+import '../providers/ranking.dart';
+import '../providers/tournaments.dart';
+import '../utils/constants.dart';
+import '../utils/text_styles.dart';
+import '../widgets/head_to_head.dart';
+import '../widgets/matches/matches_list.dart';
+import '../widgets/matches/matches_list_item.dart';
+import '../widgets/tennis_back_button.dart';
 import '../providers/players.dart';
 
 class MatchDetailScreen extends StatelessWidget {
@@ -92,7 +93,7 @@ class MatchDetailScreen extends StatelessWidget {
                       ),
                       Text(
                         "Head to Head",
-                        style: TITLE_STYLE,
+                        style: kMainTitleStyle,
                       ),
                       HeadToHead(
                         playerData.getPlayerById(match.idPlayer1),
@@ -103,7 +104,7 @@ class MatchDetailScreen extends StatelessWidget {
                       ),
                       Text(
                         "Otros partidos",
-                        style: TITLE_STYLE,
+                        style: kMainTitleStyle,
                       ),
                       SizedBox(
                         height: 10,

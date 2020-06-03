@@ -1,16 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tennistournament/models/player.dart';
-import 'package:tennistournament/models/tournament.dart';
-import 'package:tennistournament/providers/tournaments.dart';
-import 'package:tennistournament/screens/player_profile_screen.dart';
-import 'package:tennistournament/widgets/matches/matches_list.dart';
-import 'package:tennistournament/widgets/tournaments/tournaments_list_item.dart';
+import 'package:tennistournament/utils/text_styles.dart';
+
+import '../models/player.dart';
+import '../models/tournament.dart';
+import '../providers/tournaments.dart';
+import '../screens/player_profile_screen.dart';
+import '../widgets/matches/matches_list.dart';
+import '../widgets/tournaments/tournaments_list_item.dart';
 import '../providers/players.dart';
-import 'package:tennistournament/utils/constants.dart';
-import 'package:tennistournament/widgets/search_bar.dart';
-import 'package:tennistournament/widgets/selection_buttons.dart';
+import '../utils/constants.dart';
+import '../widgets/search_bar.dart';
+import '../widgets/selection_buttons.dart';
 
 class DatabaseScreen extends StatefulWidget {
   @override
@@ -20,7 +22,7 @@ class DatabaseScreen extends StatefulWidget {
 class _DatabaseScreenState extends State<DatabaseScreen> with TickerProviderStateMixin {
   bool expanded = false;
   AnimationController _controller;
-  String selectedFilter = "Partidos";
+  String selectedFilter = "Jugadores";
   String searchString = "";
   String sort = "Más recientes";
 
@@ -91,7 +93,7 @@ class _DatabaseScreenState extends State<DatabaseScreen> with TickerProviderStat
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   playerList[index].name,
-                  style: PLAYER_NAME_STYLE,
+                  style: kPlayerNameStyle,
                 ),
               ),
             ),
@@ -219,7 +221,7 @@ class _DatabaseScreenState extends State<DatabaseScreen> with TickerProviderStat
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "Ordenar por:",
-                          style: TITLE_STYLE,
+                          style: kMainTitleStyle,
                         ),
                       ),
                       SelectionButtons(
@@ -260,7 +262,7 @@ class _DatabaseScreenState extends State<DatabaseScreen> with TickerProviderStat
                   alignment: Alignment.center,
                   child: Text(
                     _buildDefaultTitle(selectedFilter),
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: kDarkSubtitleStyle,
                   ),
                 ),
                 Expanded(child: _buildDefault(selectedFilter)),

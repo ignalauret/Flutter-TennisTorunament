@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tennistournament/models/tournament.dart';
 import 'package:tennistournament/utils/constants.dart';
-import 'package:tennistournament/widgets/back_button_header.dart';
+import 'package:tennistournament/utils/text_styles.dart';
+import 'package:tennistournament/widgets/back_button_app_bar.dart';
 import 'package:tennistournament/widgets/category_buttons.dart';
 import 'package:tennistournament/widgets/matches/matches_list.dart';
 import 'package:tennistournament/widgets/players/players_list.dart';
@@ -56,15 +57,19 @@ class _TournamentDrawScreenState extends State<TournamentDrawScreen> {
       startingCategory = false;
       selectedCategory = argsMap["selectedCategory"];
     }
-    final size = MediaQuery.of(context).size;
     final Tournament tournament = argsMap["tournament"];
     return Scaffold(
       backgroundColor: MAIN_COLOR,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        title: BackButtonAppBar(
+          title: "Cuadro de ${tournament.name}",
+        ),
+      ),
       body: Column(
         children: <Widget>[
-          BackButtonHeader(
-            title: "Cuadro de ${tournament.name}",
-          ),
+          SizedBox(height: 10,),
           CategoryButtons(selectCategory, selectedCategory),
           SizedBox(
             height: 10,
@@ -89,14 +94,14 @@ class _TournamentDrawScreenState extends State<TournamentDrawScreen> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Nombre",
-                      style: SMALL_TITLE_STYLE,
+                      style: kSelectionButtonTextStyle,
                       textAlign: TextAlign.start,
                     ),
                   ),
                   Expanded(
                     child: Text(
                       "Jugados",
-                      style: SMALL_TITLE_STYLE,
+                      style: kSelectionButtonTextStyle,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -104,7 +109,7 @@ class _TournamentDrawScreenState extends State<TournamentDrawScreen> {
                     width: MediaQuery.of(context).size.width * 0.15,
                     child: Text(
                       "Puntos",
-                      style: SMALL_TITLE_STYLE,
+                      style: kSelectionButtonTextStyle,
                       textAlign: TextAlign.center,
                     ),
                   )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tennistournament/utils/constants.dart';
+import 'package:tennistournament/utils/text_styles.dart';
 import 'package:tennistournament/widgets/ranking/ranking_badge.dart';
 
 class MatchesListItem extends StatelessWidget {
@@ -44,7 +45,7 @@ class MatchesListItem extends StatelessWidget {
               RankingBadge(ranking),
               Text(
                 name,
-                style: PLAYER_NAME_STYLE,
+                style: kPlayerNameStyle,
               ),
               SizedBox(
                 width: 10,
@@ -81,56 +82,59 @@ class MatchesListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Card(
-        margin: const EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 5,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(BORDER_RADIUS),
-        ),
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    DateFormat("EE dd MMMM, y").format(date),
-                    style: MATCH_INFO_STYLE,
-                  ),
-                  Text(
-                    DateFormat("HH:mm").format(date),
-                    style: MATCH_INFO_STYLE,
-                  ),
-                ],
-              ),
-              _buildPlayerRow(
-                  name1, result1, size.width * 0.3, isFirstWinner, ranking1),
-              _buildPlayerRow(
-                name2,
-                result2,
-                size.width * 0.3,
-                !isFirstWinner,
-                ranking2,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    tournament,
-                    style: MATCH_INFO_STYLE,
-                  ),
-                  Text(
-                    round,
-                    style: MATCH_INFO_STYLE,
-                  ),
-                ],
-              )
-            ],
+    return Container(
+      height: 155,
+      child: Card(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 5,
           ),
-        ));
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(BORDER_RADIUS),
+          ),
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      DateFormat("EE dd MMMM, y").format(date),
+                      style: kMatchInfoStyle,
+                    ),
+                    Text(
+                      DateFormat("HH:mm").format(date),
+                      style: kMatchInfoStyle,
+                    ),
+                  ],
+                ),
+                _buildPlayerRow(
+                    name1, result1, size.width * 0.3, isFirstWinner, ranking1),
+                _buildPlayerRow(
+                  name2,
+                  result2,
+                  size.width * 0.3,
+                  !isFirstWinner,
+                  ranking2,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      tournament,
+                      style: kMatchInfoStyle,
+                    ),
+                    Text(
+                      round,
+                      style: kMatchInfoStyle,
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )),
+    );
   }
 }

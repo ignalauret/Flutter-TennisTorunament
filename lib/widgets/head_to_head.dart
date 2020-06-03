@@ -10,6 +10,7 @@ import 'package:tennistournament/providers/matches.dart';
 import 'package:tennistournament/providers/tournaments.dart';
 import 'package:tennistournament/screens/player_profile_screen.dart';
 import 'package:tennistournament/utils/constants.dart';
+import 'package:tennistournament/utils/text_styles.dart';
 import 'package:tennistournament/widgets/h2h/head_to_head_stat.dart';
 
 class HeadToHead extends StatelessWidget {
@@ -66,10 +67,7 @@ class HeadToHead extends StatelessWidget {
               ),
               Text(
                 "$wins1:$wins2",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                ),
+                style: kHeadToHeadWinsStyle,
               ),
             ],
           ),
@@ -119,7 +117,7 @@ class HeadToHead extends StatelessWidget {
                     fit: BoxFit.scaleDown,
                     child: Text(
                       player1.name,
-                      style: TITLE_STYLE,
+                      style: kMainTitleStyle,
                     ),
                   ),
                 ),
@@ -130,7 +128,7 @@ class HeadToHead extends StatelessWidget {
                     fit: BoxFit.scaleDown,
                     child: Text(
                       player2.name,
-                      style: TITLE_STYLE,
+                      style: kMainTitleStyle,
                     ),
                   ),
                 ),

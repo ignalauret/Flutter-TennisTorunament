@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tennistournament/utils/constants.dart';
+import 'package:tennistournament/utils/text_styles.dart';
 
 class SearchBar extends StatefulWidget {
   SearchBar(this.expandContainer, this.collapseContainer, this.search,
@@ -40,11 +41,11 @@ class _SearchBarState extends State<SearchBar> {
               margin: const EdgeInsets.symmetric(horizontal: 5),
               alignment: Alignment.center,
               child: TextField(
-                style: TextStyle(color: Colors.grey[300]),
+                style: kSearchBarStyle,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "Buscar",
-                  hintStyle: TextStyle(color: Colors.grey[300]),
+                  hintStyle: kSearchBarStyle,
                 ),
                 controller: controller,
                 onChanged: (val) {
@@ -74,13 +75,7 @@ class _SearchBarState extends State<SearchBar> {
                   widget.search("");
                   FocusScope.of(context).unfocus();
                 },
-                child: Text(
-                  "Cancelar",
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 15,
-                  ),
-                ),
+                child: Text("Cancelar", style: kSearchBarCancelStyle),
               ),
             ),
           SizedBox(

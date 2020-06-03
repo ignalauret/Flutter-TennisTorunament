@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournament/models/tournament.dart';
 import 'package:tennistournament/providers/tournaments.dart';
+import 'package:tennistournament/utils/text_styles.dart';
 import 'package:tennistournament/widgets/tournaments/tournaments_list_item.dart';
 
 class TournamentsList extends StatelessWidget {
@@ -23,10 +24,7 @@ class TournamentsList extends StatelessWidget {
             ? Center(
                 child: Text(
                   "No hay torneos activos en esta fecha",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 15,
-                  ),
+                  style: kSmallTitleStyle,
                 ),
               )
             : ListView.builder(

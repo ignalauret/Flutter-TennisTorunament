@@ -24,7 +24,6 @@ class TournamentsListItem extends StatelessWidget {
             style: TextStyle(
               color: textColor,
               fontSize: 15,
-              fontFamily: "PTSans",
             ),
           ),
         ),
@@ -70,9 +69,8 @@ class TournamentsListItem extends StatelessWidget {
                       tournament.name,
                       style: TextStyle(
                         color: textColor,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.bold,
                         fontSize: 17,
-                        fontFamily: "PTSans",
                       ),
                     ),
                   ),

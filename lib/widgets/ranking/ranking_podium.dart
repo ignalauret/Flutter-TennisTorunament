@@ -7,24 +7,13 @@ import 'package:tennistournament/providers/ranking.dart';
 import 'package:tennistournament/providers/tournaments.dart';
 import 'package:tennistournament/screens/player_profile_screen.dart';
 import 'package:tennistournament/utils/constants.dart';
+import 'package:tennistournament/utils/text_styles.dart';
 import 'package:tennistournament/widgets/ranking/ranking_badge.dart';
 
 class RankingPodium extends StatelessWidget {
   RankingPodium(this.players, this.selectedCategory);
   final List<Player> players;
   final String selectedCategory;
-
-  final TextStyle whiteName = TextStyle(
-    color: Colors.white,
-    fontWeight: FontWeight.bold,
-    fontSize: 16,
-  );
-  final TextStyle accentPoints =
-      TextStyle(color: ACCENT_COLOR, fontSize: 13, fontWeight: FontWeight.bold);
-  final TextStyle greyTournaments = TextStyle(
-    color: BACKGROUND_COLOR,
-    fontSize: 11,
-  );
 
   Widget _buildPodium({
     int ranking,
@@ -61,21 +50,21 @@ class RankingPodium extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 child: Text(
                   player.name,
-                  style: whiteName,
+                  style: kPlayerStatValueStyle,
                 ),
               ),
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
                   "${player.points[selectedCategory]} puntos",
-                  style: accentPoints,
+                  style: kPlayerPointsStyle,
                 ),
               ),
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
                   "Torneos jugados: ${tournamentData.getPlayersPlayedTournaments(player.id, selectedCategory)}",
-                  style: greyTournaments,
+                  style: kPlayerStatSubValueStyle,
                 ),
               ),
             ],

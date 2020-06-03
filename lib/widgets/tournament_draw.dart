@@ -1,14 +1,16 @@
 import 'package:diagonal_scrollview/diagonal_scrollview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tennistournament/models/match.dart';
-import 'package:tennistournament/models/tournament.dart';
-import 'package:tennistournament/providers/matches.dart';
-import 'package:tennistournament/providers/players.dart';
-import 'package:tennistournament/providers/ranking.dart';
-import 'package:tennistournament/utils/constants.dart';
-import 'package:tennistournament/utils/math_methods.dart';
-import 'package:tennistournament/widgets/matches/DrawMatchCard.dart';
+
+import '../models/match.dart';
+import '../models/tournament.dart';
+import '../providers/matches.dart';
+import '../providers/players.dart';
+import '../providers/ranking.dart';
+import '../utils/constants.dart';
+import '../utils/math_methods.dart';
+import '../utils/text_styles.dart';
+import '../widgets/matches/DrawMatchCard.dart';
 
 class TournamentDraw extends StatefulWidget {
   TournamentDraw(this.tournament, this.selectedCategory);
@@ -177,7 +179,7 @@ class _TournamentDrawState extends State<TournamentDraw> {
       children: <Widget>[
         Text(
           title,
-          style: TITLE_STYLE,
+          style: kMainTitleStyle,
         ),
         SizedBox(
           height:
@@ -202,11 +204,11 @@ class _TournamentDrawState extends State<TournamentDraw> {
     return Container(
       child: DiagonalScrollView(
         maxHeight:
-            widget.tournament.draws[widget.selectedCategory].drawHeight + 20,
+            widget.tournament.draws[widget.selectedCategory].drawHeight + 30,
         maxWidth: 1000,
         child: Container(
           height:
-              widget.tournament.draws[widget.selectedCategory].drawHeight + 20,
+              widget.tournament.draws[widget.selectedCategory].drawHeight + 30,
           width: 1000,
           margin: const EdgeInsets.all(15),
           child: Row(

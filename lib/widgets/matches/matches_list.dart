@@ -6,6 +6,7 @@ import 'package:tennistournament/providers/ranking.dart';
 import 'package:tennistournament/providers/tournaments.dart';
 import 'package:tennistournament/screens/match_detail_screen.dart';
 import 'package:tennistournament/utils/date_methods.dart';
+import 'package:tennistournament/utils/text_styles.dart';
 import 'package:tennistournament/widgets/matches/matches_list_item.dart';
 import '../../providers/matches.dart';
 
@@ -77,19 +78,16 @@ class MatchesList extends StatelessWidget {
 
         return matchesList.isEmpty
             ? Container(
-                height: 140,
+                height: 155,
                 width: double.infinity,
                 alignment: Alignment.center,
                 child: Text(
                   "No hay partidos",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 18,
-                  ),
+                  style: kSmallTitleStyle,
                 ),
               )
             : Container(
-                height: matchesList.length * 140.0,
+                height: matchesList.length * 155.0,
                 child: ListView.builder(
                   physics: scrollable ? null : NeverScrollableScrollPhysics(),
                   padding: const EdgeInsets.all(0),

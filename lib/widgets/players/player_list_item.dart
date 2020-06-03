@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tennistournament/utils/constants.dart';
+import '../../utils/constants.dart';
+import '../../utils/text_styles.dart';
 
 import '../ranking/ranking_badge.dart';
 
@@ -37,7 +38,7 @@ class PlayerListItem extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 child: Text(
                   name,
-                  style: PLAYER_NAME_STYLE,
+                  style: kPlayerNameStyle,
                   textAlign: TextAlign.start,
                 ),
               ),
@@ -52,11 +53,7 @@ class PlayerListItem extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.15,
               child: Text(
                 points,
-                style: TextStyle(
-                  color: ACCENT_COLOR,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold
-                ),
+                style: kPlayerPointsStyle,
                 textAlign: TextAlign.center,
               ),
             )

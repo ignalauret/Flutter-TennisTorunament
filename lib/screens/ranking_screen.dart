@@ -1,17 +1,13 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:tennistournament/models/player.dart';
-import 'package:tennistournament/providers/players.dart';
-import 'package:tennistournament/providers/ranking.dart';
-import 'package:tennistournament/screens/player_profile_screen.dart';
-import 'package:tennistournament/utils/constants.dart';
-import 'package:tennistournament/widgets/category_buttons.dart';
-import 'package:tennistournament/widgets/players/players_list.dart';
-import 'package:tennistournament/widgets/ranking/ranking_badge.dart';
-import 'package:tennistournament/widgets/ranking/ranking_podium.dart';
+import '../providers/players.dart';
+import '../providers/ranking.dart';
+import '../utils/constants.dart';
+import '../utils/text_styles.dart';
+import '../widgets/category_buttons.dart';
+import '../widgets/players/players_list.dart';
+import '../widgets/ranking/ranking_podium.dart';
 
 class RankingScreen extends StatefulWidget {
   @override
@@ -76,14 +72,14 @@ class _RankingScreenState extends State<RankingScreen> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Nombre",
-                    style: SMALL_TITLE_STYLE,
+                    style: kSmallTitleStyle,
                     textAlign: TextAlign.start,
                   ),
                 ),
                 Expanded(
                   child: Text(
                     "Jugados",
-                    style: SMALL_TITLE_STYLE,
+                    style: kSmallTitleStyle,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -91,7 +87,7 @@ class _RankingScreenState extends State<RankingScreen> {
                   width: MediaQuery.of(context).size.width * 0.15,
                   child: Text(
                     "Puntos",
-                    style: SMALL_TITLE_STYLE,
+                    style: kSmallTitleStyle,
                     textAlign: TextAlign.center,
                   ),
                 )

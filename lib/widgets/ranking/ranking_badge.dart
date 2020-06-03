@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tennistournament/utils/constants.dart';
+import '../../utils/text_styles.dart';
+import '../../utils/constants.dart';
 
 class RankingBadge extends StatelessWidget {
   RankingBadge(this.rank, {this.size = 20});
@@ -21,11 +22,7 @@ class RankingBadge extends StatelessWidget {
         fit: BoxFit.scaleDown,
         child: Text(
           rank,
-          style: TextStyle(
-            fontSize: 13,
-            color: Colors.white,
-            fontWeight: FontWeight.bold
-          ),
+          style: kRankingBadgeTextStyle,
         ),
       ),
     );
