@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tennistournament/custom_icons_icons.dart';
 import '../models/match.dart';
 import '../providers/ranking.dart';
 import '../providers/tournaments.dart';
@@ -42,9 +43,17 @@ class MatchDetailScreen extends StatelessWidget {
                   Container(
                     height: size.height * 0.52,
                     width: size.width,
-                    child: Image.asset(
-                      match.imageUrl,
-                      fit: BoxFit.cover,
+                    color: Colors.black45,
+//                    child: Image.asset(
+//                      match.imageUrl,
+//                      fit: BoxFit.cover,
+//                    ),
+                    child: Center(
+                      child: Icon(
+                        CustomIcons.versus,
+                        size: 150,
+                        color: Colors.white30,
+                      ),
                     ),
                   ),
                   Positioned(

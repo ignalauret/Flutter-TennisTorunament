@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:tennistournament/models/match.dart';
 import 'package:http/http.dart' as http;
 import 'package:tennistournament/utils/stats_methods.dart';
@@ -15,6 +15,7 @@ class Matches extends ChangeNotifier {
     final response = await http
         .get("https://tennis-tournament-4990d.firebaseio.com/matches.json");
     final responseData = json.decode(response.body) as List<dynamic>;
+    if(responseData == null) return [];
     for (int i = 0; i < responseData.length; i++) {
       final Map<String, dynamic> tournamentData = responseData[i];
       _matches.add(Match.fromJson(i.toString(), tournamentData));

@@ -10,7 +10,7 @@ class TournamentsList extends StatelessWidget {
   final DateTime date;
   @override
   Widget build(BuildContext context) {
-    final tournamentsData = Provider.of<Tournaments>(context);
+    final tournamentsData = Provider.of<Tournaments>(context, listen: false);
     return FutureBuilder(
       future: tournamentsData.fetchTournaments(),
       builder: (ctx, snapshot) {

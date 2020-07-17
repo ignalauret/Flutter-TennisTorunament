@@ -77,8 +77,8 @@ class RankingPodium extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final rankingData = Provider.of<Ranking>(context);
-    final tournamentData = Provider.of<Tournaments>(context);
+    final rankingData = Provider.of<Ranking>(context, listen: false);
+    final tournamentData = Provider.of<Tournaments>(context, listen: false);
 
     return Stack(
       children: <Widget>[

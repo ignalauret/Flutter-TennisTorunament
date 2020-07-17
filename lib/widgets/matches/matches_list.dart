@@ -34,10 +34,10 @@ class MatchesList extends StatelessWidget {
   final bool reversed;
   @override
   Widget build(BuildContext context) {
-    final tournamentsData = Provider.of<Tournaments>(context);
-    final matchesData = Provider.of<Matches>(context);
-    final playerData = Provider.of<Players>(context);
-    final rankingData = Provider.of<Ranking>(context);
+    final tournamentsData = Provider.of<Tournaments>(context, listen: false);
+    final matchesData = Provider.of<Matches>(context, listen: false);
+    final playerData = Provider.of<Players>(context, listen: false);
+    final rankingData = Provider.of<Ranking>(context, listen: false);
     return FutureBuilder<List<Match>>(
       future: matchesData.fetchMatches(),
       builder: (ctx, snapshot) {

@@ -24,12 +24,17 @@ class _RankingScreenState extends State<RankingScreen> {
   }
 
   @override
+  void initState() {
+    Provider.of<Players>(context, listen: false).fetchPlayers();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final ranking =
-        Provider.of<Ranking>(context).fetchRanking(selectedCategory);
+        Provider.of<Ranking>(context, listen: false).fetchRanking(selectedCategory);
     final playerData = Provider.of<Players>(context);
-    playerData.fetchPlayers();
     return Container(
       color: BACKGROUND_COLOR,
       child: Column(
@@ -62,7 +67,7 @@ class _RankingScreenState extends State<RankingScreen> {
             ),
           ),
           Container(
-            height: 20,
+            height: 30,
             padding: const EdgeInsets.only(right: 23, left: 48),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,

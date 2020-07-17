@@ -85,9 +85,10 @@ class TournamentsListItem extends StatelessWidget {
                   ),
                   _buildInfo(
                       CustomIcons.tennis_calendar,
-                      DateFormat.MEd().format(tournament.start) +
+                      "Del " +
+                      DateFormat("d/MM").format(tournament.start) +
                           " al " +
-                          DateFormat.MEd().format(tournament.end)),
+                          DateFormat("d/MM").format(tournament.end)),
                   _buildInfo(
                     Icons.people,
                     tournament.getInitialPlayers().toString() + " inscriptos",

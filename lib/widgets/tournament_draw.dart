@@ -198,9 +198,9 @@ class _TournamentDrawState extends State<TournamentDraw> {
 
   @override
   Widget build(BuildContext context) {
-    final matchesData = Provider.of<Matches>(context);
-    final playerData = Provider.of<Players>(context);
-    final rankingData = Provider.of<Ranking>(context);
+    final matchesData = Provider.of<Matches>(context, listen: false);
+    final playerData = Provider.of<Players>(context, listen: false);
+    final rankingData = Provider.of<Ranking>(context, listen: false);
     return Container(
       child: DiagonalScrollView(
         maxHeight:

@@ -73,6 +73,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           FittedBox(
+            fit: BoxFit.scaleDown,
             child: Text(
               label,
               style:
@@ -80,6 +81,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
             ),
           ),
           FittedBox(
+            fit: BoxFit.scaleDown,
             child: Text(
               value,
               style: kPlayerStatValueStyle
@@ -107,9 +109,9 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
   Widget build(BuildContext context) {
     final Player player = ModalRoute.of(context).settings.arguments;
     final size = MediaQuery.of(context).size;
-    final rankingData = Provider.of<Ranking>(context);
-    final matchesData = Provider.of<Matches>(context);
-    final tournamentsData = Provider.of<Tournaments>(context);
+    final rankingData = Provider.of<Ranking>(context, listen: false);
+    final matchesData = Provider.of<Matches>(context, listen: false);
+    final tournamentsData = Provider.of<Tournaments>(context, listen: false);
     return Scaffold(
       backgroundColor: MAIN_COLOR,
       body: CustomScrollView(
@@ -170,20 +172,27 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
                             width: size.width * 0.5,
                             alignment: Alignment.center,
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
+                                SizedBox(
+                                  width: 10,
+                                ),
                                 Image.asset(
                                   "assets/img/argentina_flag.png",
-                                  height: 20,
+                                  width: 30,
                                 ),
                                 SizedBox(
                                   width: 10,
                                 ),
-                                FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                    player.nationality,
-                                    style: kPlayerStatValueStyle,
+                                Container(
+                                  width: size.width * 0.5 - 50,
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      player.nationality,
+                                      style: kPlayerStatValueStyle,
+                                    ),
                                   ),
                                 ),
                               ],

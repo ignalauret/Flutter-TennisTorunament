@@ -48,6 +48,18 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/img/fabian_torres_image.png
+    - assets/img/fabian_torres_profile.png
+    - assets/img/guillermo_pinus_image.png
+    - assets/img/guillermo_pinus_profile.png
+    - assets/img/leonardo_pace_image.png
+    - assets/img/leonardo_pace_profile.png
+    - assets/img/luis_guerci_image.png
+    - assets/img/luis_guerci_profile.png
+    - assets/img/matias_zemborain_image.png
+    - assets/img/matias_zemborain_profile.png
+    - assets/img/pablo_santacruz_image.png
+    - assets/img/pablo_santacruz_profile.png
     - assets/img/damian_giusti_image.png
     - assets/img/damian_giusti_profile.png
     - assets/img/ignacio_zazu_image.png

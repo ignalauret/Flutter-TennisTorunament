@@ -108,8 +108,8 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final Tournament tournament = ModalRoute.of(context).settings.arguments;
-    final playerData = Provider.of<Players>(context);
-    final ranking = Provider.of<Ranking>(context);
+    final playerData = Provider.of<Players>(context, listen: false);
+    final ranking = Provider.of<Ranking>(context, listen: false);
     final tournamentPlayerList = tournament.players;
     tournamentPlayerList.forEach(
       (category, playerList) => playerList.sort(

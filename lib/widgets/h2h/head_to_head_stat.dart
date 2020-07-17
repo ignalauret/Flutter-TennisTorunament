@@ -4,11 +4,12 @@ import '../../utils/constants.dart';
 import '../../utils/text_styles.dart';
 
 class HeadToHeadStat extends StatelessWidget {
-  HeadToHeadStat(this.label, this.value1, this.value2, this.withStatBar);
+  HeadToHeadStat(this.label, this.value1, this.value2, this.withStatBar, this.fullPercentage);
   final String label;
   final String value1;
   final String value2;
   final bool withStatBar;
+  final bool fullPercentage;
 
   Widget _buildStatBar(
       double percentage, Color color, bool leftAligned, double screenWidth) {
@@ -102,7 +103,7 @@ class HeadToHeadStat extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: _buildStatBar(
-                      number1 == 0 ? 0 : number1 / (number1 + number2),
+                      number1 == 0 ? 0 : fullPercentage ? number1 / 100 : number1 / (number1 + number2),
                       number1 > number2
                           ? ACCENT_COLOR
                           : ACCENT_COLOR.withAlpha(120),
@@ -114,7 +115,7 @@ class HeadToHeadStat extends StatelessWidget {
                 ),
                 Expanded(
                   child: _buildStatBar(
-                      number2 == 0 ? 0 : number2 / (number1 + number2),
+                      number2 == 0 ? 0 : fullPercentage ? number2 / 100 : number2 / (number1 + number2),
                       number1 < number2
                           ? ACCENT_COLOR
                           : ACCENT_COLOR.withAlpha(120),

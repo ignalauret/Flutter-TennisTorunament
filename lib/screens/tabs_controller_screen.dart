@@ -19,10 +19,10 @@ class _TabsControllerScreenState extends State<TabsControllerScreen> {
     DatabaseScreen(),
     MatchesScreen(),
     RankingScreen(),
-    DatabaseScreen(),
+    //DatabaseScreen(),
   ];
 
-  final _titles = ["Home", "Calendario", "Ranking", "Base de Datos"];
+  final _titles = ["Base de Datos", "Calendario", "Ranking"];
   Widget _buildAppBar() {
     return AppBar(
       backgroundColor: MAIN_COLOR,
@@ -45,7 +45,7 @@ class _TabsControllerScreenState extends State<TabsControllerScreen> {
         buttonBackgroundColor: Colors.white,
         items: <Widget>[
           Icon(
-            Icons.home,
+            CustomIcons.tennis_education,
             size: 30,
             color: MAIN_COLOR,
           ),
@@ -56,11 +56,6 @@ class _TabsControllerScreenState extends State<TabsControllerScreen> {
           ),
           Icon(
             CustomIcons.podium,
-            size: 30,
-            color: MAIN_COLOR,
-          ),
-          Icon(
-            CustomIcons.tennis_education,
             size: 30,
             color: MAIN_COLOR,
           ),

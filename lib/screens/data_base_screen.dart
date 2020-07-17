@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournament/utils/text_styles.dart';
@@ -25,10 +24,13 @@ class _DatabaseScreenState extends State<DatabaseScreen> with TickerProviderStat
   String selectedFilter = "Jugadores";
   String searchString = "";
   String sort = "Más recientes";
+  Future<List<Player>> playersList;
+  Future<List<Tournament>> tournamentsList;
 
   @override
   void initState() {
-    Provider.of<Tournaments>(context, listen: false).fetchTournaments();
+    tournamentsList = Provider.of<Tournaments>(context, listen: false).fetchTournaments();
+    playersList = Provider.of<Players>(context, listen: false).fetchPlayers();
     _controller = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 200),
@@ -73,7 +75,7 @@ class _DatabaseScreenState extends State<DatabaseScreen> with TickerProviderStat
 
   Widget _buildPlayerList(String search, bool reversed) {
     return FutureBuilder<List<Player>>(
-      future: Provider.of<Players>(context, listen: false).fetchPlayers(),
+      future: playersList,
       builder: (context, snapshot) {
         if (snapshot == null || snapshot.data == null)
           return Center(
@@ -106,7 +108,7 @@ class _DatabaseScreenState extends State<DatabaseScreen> with TickerProviderStat
 
   Widget _buildTournamentsList(String search, bool reversed) {
     return FutureBuilder<List<Tournament>>(
-      future: Provider.of<Tournaments>(context).fetchTournaments(),
+      future: tournamentsList,
       builder: (context, snapshot) {
         if (snapshot == null || snapshot.data == null) {
           return Center(

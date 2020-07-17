@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:tennistournament/utils/date_methods.dart';
 import 'package:tennistournament/utils/parsers.dart';
 
 class Match {

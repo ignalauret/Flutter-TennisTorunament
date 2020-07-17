@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 class Players extends ChangeNotifier {
   List<Player> _players = [];
+
   Future<List<Player>> fetchPlayers() async {
     if(_players.isNotEmpty) return [..._players];
     final response = await http.get("https://tennis-tournament-4990d.firebaseio.com/players.json");

@@ -88,8 +88,8 @@ class HeadToHead extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tournamentData = Provider.of<Tournaments>(context);
-    final matchesData = Provider.of<Matches>(context);
+    final tournamentData = Provider.of<Tournaments>(context, listen: false);
+    final matchesData = Provider.of<Matches>(context, listen: false);
     final size = MediaQuery.of(context).size;
     final versus = matchesData.getVersus(player1.id, player2.id);
     return Container(
@@ -141,26 +141,26 @@ class HeadToHead extends StatelessWidget {
                   " (${DateFormat("d.M.yyyy").format(player1.birth)})",
               "(${DateFormat("d.M.yyyy").format(player2.birth)}) " +
                   player2.age.toString(),
-              false),
-          HeadToHeadStat("Club", player1.club, player2.club, false),
-          HeadToHeadStat("Mano hábil", player1.hand, player2.hand, false),
+              false, false),
+          HeadToHeadStat("Club", player1.club, player2.club, false, false),
+          HeadToHeadStat("Mano hábil", player1.hand, player2.hand, false, false),
           HeadToHeadStat(
-              "Revés", player1.backhandType, player2.backhandType, false),
+              "Revés", player1.backhandType, player2.backhandType, false, false),
           HeadToHeadStat(
               "Títulos",
               tournamentData.getAllPlayerTitles(player1.id).toString(),
               tournamentData.getAllPlayerTitles(player2.id).toString(),
-              true),
+              true, false),
           HeadToHeadStat(
               "Victorias",
               matchesData.getAllPlayerWins(player1.id).toString(),
               matchesData.getAllPlayerWins(player2.id).toString(),
-              true),
+              true, false),
           HeadToHeadStat(
               "% Victorias",
               matchesData.getWinRatio(player1.id).toString(),
               matchesData.getWinRatio(player2.id).toString(),
-              true),
+              true, true),
         ],
       ),
     );
