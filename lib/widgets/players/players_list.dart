@@ -17,22 +17,26 @@ class PlayersList extends StatelessWidget {
     final tournamentData = Provider.of<Tournaments>(context, listen: false);
     return ListView.builder(
       padding: const EdgeInsets.all(0),
-      itemBuilder: (ctx, index) => InkWell(
-        onTap: () => Navigator.of(context).pushNamed(
-          PlayerProfileScreen.routeName,
-          arguments: playersData.getPlayerById(ranking[index]),
-        ),
-        child: PlayerListItem(
-          ranking: rankingData.getRankingOf(ranking[index], selectedCategory),
-          name: playersData.getPlayerName(ranking[index]),
-          tournaments: tournamentData
-              .getPlayersPlayedTournaments(ranking[index], selectedCategory)
-              .toString(),
-          points: playersData
-              .getPlayerPoints(ranking[index], selectedCategory)
-              .toString(),
-        ),
-      ),
+      itemBuilder: (ctx, index) => ranking[index] == "-1"
+          ? Container()
+          : InkWell(
+              onTap: () => Navigator.of(context).pushNamed(
+                PlayerProfileScreen.routeName,
+                arguments: playersData.getPlayerById(ranking[index]),
+              ),
+              child: PlayerListItem(
+                ranking:
+                    rankingData.getRankingOf(ranking[index], selectedCategory),
+                name: playersData.getPlayerName(ranking[index]),
+                tournaments: tournamentData
+                    .getPlayersPlayedTournaments(
+                        ranking[index], selectedCategory)
+                    .toString(),
+                points: playersData
+                    .getPlayerPoints(ranking[index], selectedCategory)
+                    .toString(),
+              ),
+            ),
       itemCount: ranking.length,
     );
   }

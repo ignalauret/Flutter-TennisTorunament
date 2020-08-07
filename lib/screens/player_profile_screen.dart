@@ -235,7 +235,7 @@ class _PlayerProfileScreenState extends State<PlayerProfileScreen> {
               [
                 Container(
                   child: Column(children: <Widget>[
-                    CategoryButtons(selectCategory, selectedCategory),
+                    CategoryButtons(selectCategory, selectedCategory, Categories),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[

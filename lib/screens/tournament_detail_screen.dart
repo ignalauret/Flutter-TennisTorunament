@@ -175,7 +175,7 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
                               " al " +
                               DateFormat("d/M").format(tournament.end),
                           size),
-                      CategoryButtons(selectCategory, selectedCategory),
+                      CategoryButtons(selectCategory, selectedCategory, tournament.getCategories()),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[

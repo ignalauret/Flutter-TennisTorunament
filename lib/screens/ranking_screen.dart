@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:tennistournament/providers/matches.dart';
 import '../providers/players.dart';
 import '../providers/ranking.dart';
 import '../utils/constants.dart';
@@ -56,7 +57,7 @@ class _RankingScreenState extends State<RankingScreen> {
                     bottom: 0,
                   ),
                   color: MAIN_COLOR,
-                  child: CategoryButtons(selectCategory, selectedCategory),
+                  child: CategoryButtons(selectCategory, selectedCategory, Categories),
                 ),
                 RankingPodium([
                   playerData.getPlayerById(ranking[0]),

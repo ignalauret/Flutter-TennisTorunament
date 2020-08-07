@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:tennistournament/models/Draw.dart';
+import 'package:tennistournament/providers/matches.dart';
 import 'package:tennistournament/utils/parsers.dart';
 
 class Tournament {
-  Tournament({
-    @required this.id,
-    @required this.name,
-    @required this.club,
-    @required this.players,
-    @required this.start,
-    @required this.end,
-    this.winners,
-    this.draws,
-    this.logoUrl
-  });
+  Tournament(
+      {@required this.id,
+      @required this.name,
+      @required this.club,
+      @required this.players,
+      @required this.start,
+      @required this.end,
+      this.winners,
+      this.draws,
+      this.logoUrl});
 
   Tournament.fromJson(String id, Map<String, dynamic> tournamentData)
       : id = id,
@@ -43,6 +43,14 @@ class Tournament {
 
   String getWinnerId(String category) {
     return winners[category];
+  }
+
+  List<String> getCategories() {
+    List<String> result = [];
+    for (String category in Categories) {
+      if (players.containsKey(category)) result.add(category);
+    }
+    return result;
   }
 
   int getInitialPlayers() {
@@ -78,7 +86,10 @@ class Tournament {
   }
 
   bool hasPlayed(String id, String category) {
-    return players[category].contains(id);
+    if (players.containsKey(category)) {
+      return players[category].contains(id);
+    }
+    return false;
   }
 
   int getPlayerTitles(String id) {

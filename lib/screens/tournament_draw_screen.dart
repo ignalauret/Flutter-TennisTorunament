@@ -70,7 +70,7 @@ class _TournamentDrawScreenState extends State<TournamentDrawScreen> {
       body: Column(
         children: <Widget>[
           SizedBox(height: 10,),
-          CategoryButtons(selectCategory, selectedCategory),
+          CategoryButtons(selectCategory, selectedCategory, tournament.getCategories()),
           SizedBox(
             height: 10,
           ),

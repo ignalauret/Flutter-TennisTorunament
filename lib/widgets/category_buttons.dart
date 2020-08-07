@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:tennistournament/widgets/selection_buttons.dart';
 
 class CategoryButtons extends StatelessWidget {
-  CategoryButtons(this.selectCategory, this.selectedCategory);
+  CategoryButtons(this.selectCategory, this.selectedCategory, this.categories);
   final Function selectCategory;
   final String selectedCategory;
+  final List<String> categories;
 
   void select(String text) {
     selectCategory(text.substring(text.length - 1));
@@ -12,7 +13,7 @@ class CategoryButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SelectionButtons(["Categoria A", "Categoria B", "Categoria C"], select,
-        "Categoria " + selectedCategory);
+    return SelectionButtons(categories.map((category) => "Categoría " + category).toList(), select,
+        "Categoría " + selectedCategory);
   }
 }
